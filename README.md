@@ -39,6 +39,8 @@ All analyses ran as Kaggle kernels; each step reads the outputs of earlier steps
 | 24 | `kaggle/24_figure_assets/figure_assets.py` | GPU | 02, 03, 20, 22 | Signal assets for the figures |
 | 25 | `kaggle/25_figures_v5/figures_v5.ipynb` | CPU | 19, 20, 21, 22, 24 | All figures (drawing only, about 2 minutes) |
 | 26 | `kaggle/26_listening/listening.py` | GPU | 02, 03, 20 | Sonified movements (supplementary audio) |
+| 27 | `kaggle/27_resynthesis_check/resynthesis_check.py` | GPU | 02, 03 | Resynthesis fidelity in patients vs controls (indirect check of the inversion in PD) |
+| — | `tools/reviewer_checks.py` (local, seconds) | CPU | results of 02, 20, 22 | Recording-condition and composite leave-one-out robustness checks → `results/27_reviewer_checks/` |
 
 ### Re-running on Kaggle
 

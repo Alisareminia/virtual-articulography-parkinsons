@@ -182,7 +182,7 @@ def save(fig, name):
     issues = check_collisions(fig)
     QC[name] = len(issues)
     for fmt in STYLE["formats"]:
-        fig.savefig(FIG_DIR / f"{name}.{fmt}", dpi=STYLE["dpi"], facecolor="white")
+        fig.savefig(FIG_DIR / f"{name}.{fmt}", dpi=STYLE["dpi"], facecolor="white", bbox_inches="tight", pad_inches=0.03)
     print(f"saved {name}  ({len(issues)} collisions)")
     return issues
 

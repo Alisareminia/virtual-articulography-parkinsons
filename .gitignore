@@ -16,11 +16,13 @@
 !kaggle/24_figure_assets/**
 !kaggle/25_figures_v5/**
 !kaggle/26_listening/**
+!kaggle/27_resynthesis_check/**
 
 # local tools
 !tools/pull_outputs.py
 !tools/build_figures_v5.py
 !tools/figure_v5_cells.py
+!tools/reviewer_checks.py
 
 # derived results (hashed speaker IDs; no audio)
 !results/19_virtual_articulography_pilot/**
@@ -28,6 +30,8 @@
 !results/21_sensor_check/**
 !results/22_head_to_head/**
 !results/24_figure_assets/**
+!results/27_reviewer_checks/**
+!results/27_resynthesis_check/**
 
 # figures and tables
 !paper/figures_v5/**

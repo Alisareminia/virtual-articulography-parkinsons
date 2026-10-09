@@ -903,8 +903,8 @@ code(r'''
 apply_style()
 A = load("h2h_auc.csv"); F = load("h2h_formant_vs_dl.csv"); UQ = load("h2h_unique_information.csv"); LR = load("h2h_likelihood_ratio.csv")
 S = load("speaker_table_dl_and_classic.csv")
-fig = plt.figure(figsize=(STYLE["w2"], 215 * MM))
-outer = fig.add_gridspec(2, 1, left=0.16, right=0.985, bottom=0.075, top=0.955, height_ratios=[0.78, 1.35], hspace=0.40)
+fig = plt.figure(figsize=(STYLE["w2"], 192 * MM))
+outer = fig.add_gridspec(2, 1, left=0.16, right=0.985, bottom=0.085, top=0.955, height_ratios=[0.8, 1.3], hspace=0.30)
 r1 = outer[0].subgridspec(1, 3, width_ratios=[1.15, 1.0, 0.78], wspace=0.7)
 NAME = {"classic timing/prosody": "Timing & prosody", "classic voice quality": "Voice quality",
         "classic articulation (incl. formant movement)": "Articulation (formants)", "all classic": "All classic",
