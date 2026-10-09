@@ -27,7 +27,7 @@ md("""
 Reads the saved outputs of the finished analysis notebooks (steps 19-22 result CSVs, step 24 signal assets) and only
 draws. Light summaries (z-scores, correlations, PCA for display) take well under a second; nothing is re-analysed.
 
-* Palette 'Midnight & Rose': midnight slate = healthy, crimson-rose = Parkinson's, powder blue accent; no orange anywhere.
+* Palette 'Navy & Crimson': deep navy = healthy, crimson = Parkinson's, steel-blue accent; no pink or orange anywhere.
 * Every figure goes through `check_collisions()` (overlapping, clipped or cross-panel text). Target: 0 everywhere.
 * Output: `figures_v5/` (PNG 300 dpi + vector PDF).
 """)
@@ -83,19 +83,19 @@ md("## Style - edit here and re-run")
 code(r'''
 MM = 1 / 25.4
 STYLE = dict(
-    healthy="#26355D", pd="#E0315F",                                  # groups: midnight slate / crimson-rose
-    english="#4F6BD8", italian="#8E5BB5", phone="#B08FA8",            # datasets: cornflower / amethyst / dusty mauve
-    ink="#1C2033", ink2="#4F5470", grey="#A3A7B8", light="#E9E7EF", panel="#F5F3F7",
-    passed="#4F6BD8", failed="#DAD7E2", band="#F9D5DE", grid="#E6E3EC", accent="#9DB4FF",
+    healthy="#1F3A5F", pd="#B22234",                                  # groups: deep navy / crimson
+    english="#3A7CA5", italian="#6B5B95", phone="#8C8FA3",            # datasets: steel blue / muted violet / grey violet
+    ink="#1B2333", ink2="#4E5668", grey="#A2A8B3", light="#E8EAEE", panel="#F4F5F7",
+    passed="#2E5A87", failed="#DADDE3", band="#EEF2F7", grid="#E3E6EB", accent="#7FA6CF",
     fonts=["Arial", "Helvetica", "Liberation Sans", "DejaVu Sans"], size=6.5, small=5.6, letter=8.5,
     w1=88 * MM, w2=180 * MM, dpi=300, formats=("png", "pdf"),
 )
 ART = {"UL": "Upper lip", "LL": "Lower lip", "LI": "Jaw", "TT": "Tongue tip", "TB": "Tongue body",
        "TD": "Tongue back", "LA": "Lip opening"}
-ACOL = {"TT": "#B03A7E", "TB": "#7E57C2", "TD": "#3F51B5", "LI": "#6C7A96", "LL": "#2E8B8B", "UL": "#7CC6C0",
-        "LA": "#A68BB5"}
+ACOL = {"TT": "#1F6F8B", "TB": "#3A5BA0", "TD": "#2E3F73", "LI": "#6B7280", "LL": "#2A9D8F", "UL": "#8AB6C9",
+        "LA": "#7B6FA6"}
 VALIDATED = {"TT_range", "TB_space", "LL_range", "LL_speed", "LA_speed"}          # passed the real-sensor check (step 21)
-SPEC_CMAP = LinearSegmentedColormap.from_list("spec", ["#0B0F24", "#26355D", "#5E3C8F", "#B03A7E", "#E0315F", "#F9D5DE", "#FFFFFF"])
+SPEC_CMAP = LinearSegmentedColormap.from_list("spec", ["#060B1A", "#0F1F3D", "#1F3A5F", "#3E6A9A", "#7FA6CF", "#C9DAEC", "#FFFFFF"])
 
 def label(m):
     a, q = m.split("_", 1)
@@ -215,7 +215,7 @@ def raincloud(ax, data, pos, colors, width=0.32, s=5, seed=0):
         sd = d.std() or 1
         ys = np.linspace(d.min() - 0.15 * sd, d.max() + 0.15 * sd, 120)     # violin stays within the data range
         dens = gaussian_kde(d)(ys); dens = dens / dens.max() * width
-        ax.fill_betweenx(ys, p + 0.04, p + 0.04 + dens, color=c, alpha=0.28, lw=0)
+        ax.fill_betweenx(ys, p + 0.04, p + 0.04 + dens, color="#E6E9EE", alpha=0.95, lw=0)
         ax.plot(p + 0.04 + dens, ys, color=c, lw=0.6)
         q1, med, q3 = np.percentile(d, [25, 50, 75])
         ax.plot([p, p], [q1, q3], color=c, lw=2.6, solid_capstyle="butt", zorder=4)
@@ -273,12 +273,12 @@ def draw_mouth(ax, tongue=True, fill="#F2F4F7", edge="#B3BAC4", lw=0.8, labels=F
     if tongue:
         tg = smooth([(-2.6, -0.25), (-1.75, 0.15), (0.0, 0.85), (1.7, 0.3), (2.55, -1.2), (2.5, -2.6), (0.5, -2.35),
                      (-1.6, -1.5)], 300, closed=True)
-        ax.add_patch(Polygon(tg, closed=True, fc="#F6DCE4", ec="#E2B3C2", lw=0.5, zorder=0.8))
+        ax.add_patch(Polygon(tg, closed=True, fc="#E3E8EF", ec="#BCC5D2", lw=0.5, zorder=0.8))
     for xy in ([(-3.3, 1.38), (-2.95, 1.38), (-2.9, 0.82), (-3.2, 0.78)],
                [(-2.95, -1.3), (-2.62, -1.3), (-2.58, -1.85), (-2.9, -1.88)]):
         ax.add_patch(Polygon(xy, closed=True, fc="white", ec=edge, lw=0.5, zorder=1.2))
-    ax.add_patch(Ellipse((-3.75, 1.05), 0.75, 0.42, angle=-12, fc="#EDB8C8", ec="#DDA2B5", lw=0.4, zorder=1.1))
-    ax.add_patch(Ellipse((-3.75, -0.62), 0.75, 0.42, angle=12, fc="#EDB8C8", ec="#DDA2B5", lw=0.4, zorder=1.1))
+    ax.add_patch(Ellipse((-3.75, 1.05), 0.75, 0.42, angle=-12, fc="#D5DCE6", ec="#AEB8C6", lw=0.4, zorder=1.1))
+    ax.add_patch(Ellipse((-3.75, -0.62), 0.75, 0.42, angle=12, fc="#D5DCE6", ec="#AEB8C6", lw=0.4, zorder=1.1))
     ax.set_aspect("equal"); ax.axis("off"); ax.set_xlim(-5.2, 5.0); ax.set_ylim(-4.6, 4.4)
     if labels:
         offs = {"UL": (-0.3, 1.4), "LL": (-0.6, -1.25), "LI": (0.9, -1.55), "TT": (-0.1, 1.45), "TB": (0.3, 1.5),

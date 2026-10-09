@@ -1,7 +1,7 @@
 # Virtual articulography in Parkinson's disease
 
-Code and derived results for the study *"The mouth moves less: virtual articulography from ordinary voice recordings in
-Parkinson's disease"*.
+Code and derived results for the study *"Deep-learning acoustic-to-articulatory inversion recovers tongue and jaw hypokinesia from
+ordinary voice recordings in Parkinson's disease"*.
 
 A pretrained audio-only acoustic-to-articulatory inversion network
 ([SPARC](https://github.com/Berkeley-Speech-Group/Speech-Articulatory-Coding); Cho et al., 2024,

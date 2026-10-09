@@ -8,7 +8,7 @@ from matplotlib.lines import Line2D
 from scipy.ndimage import gaussian_filter
 from scipy.stats import ttest_ind
 
-DIV = LinearSegmentedColormap.from_list("div", ["#123B63", "#3F7CAC", "#A9C7E0", "#F7F5F2", "#F2B48C", "#D9632A", "#8A1238"])
+DIV = LinearSegmentedColormap.from_list("div", ["#0E1E36", "#1F3A5F", "#8FA9C8", "#F4F4F2", "#CF8F8C", "#B22234", "#6E1020"])
 
 def speed_line(ax, x, y, cmap="viridis", lw=0.9, alpha=0.9, vmax=None, z=4):
     """Trajectory coloured by instantaneous speed."""
@@ -49,7 +49,7 @@ def phone_icon(ax, x, y, s=1.0, col=STYLE["ink2"]):
                                 fc="white", ec=col, lw=0.6, zorder=5))
     ax.plot([x - 0.35 * s, x + 0.35 * s], [y - 1.3 * s, y - 1.3 * s], color=col, lw=0.6, zorder=6)
 
-def sensor_crossed(ax, x, y, s=1.0, col="#B5462B"):
+def sensor_crossed(ax, x, y, s=1.0, col="#8E1B2A"):
     ax.add_patch(plt.Circle((x, y), 1.3 * s, fc="white", ec=col, lw=0.8, zorder=6))
     ax.add_patch(plt.Rectangle((x - 0.45 * s, y - 0.3 * s), 0.9 * s, 0.6 * s, fc="#CFCAC2", ec=STYLE["ink2"], lw=0.4, zorder=7))
     ax.plot([x + 0.45 * s, x + 0.9 * s], [y, y + 0.5 * s], color=STYLE["ink2"], lw=0.4, zorder=7)
@@ -91,11 +91,11 @@ from scipy.cluster.hierarchy import linkage, dendrogram, leaves_list
 from scipy.spatial.distance import squareform
 
 H_, P_ = STYLE["healthy"], STYLE["pd"]
-DIV = LinearSegmentedColormap.from_list("div", ["#141C38", "#26355D", "#9AA7CC", "#F7F7F7", "#F4AFC0", "#E0315F", "#8A1238"])
+DIV = LinearSegmentedColormap.from_list("div", ["#0E1E36", "#1F3A5F", "#8FA9C8", "#F4F4F2", "#CF8F8C", "#B22234", "#6E1020"])
 DIV_R = DIV.reversed()                      # for z of movement: red = less movement than healthy
-SEQ_G = LinearSegmentedColormap.from_list("seqg", ["#FFFFFF", "#DCE4FF", "#9DB4FF", "#26355D", "#1F2E6E"])
-HEX_G = LinearSegmentedColormap.from_list("hexg", ["#ECF0FF", "#9DB4FF", "#26355D", "#1F2E6E"])
-SEVC = {0: "#F9D5DE", 1: "#F08AA4", 2: "#E0315F", 3: "#8A1238"}
+SEQ_G = LinearSegmentedColormap.from_list("seqg", ["#FFFFFF", "#DCE6F2", "#7FA6CF", "#1F3A5F", "#0F1F3D"])
+HEX_G = LinearSegmentedColormap.from_list("hexg", ["#EEF3F9", "#7FA6CF", "#1F3A5F", "#0F1F3D"])
+SEVC = {0: "#CDD2DA", 1: "#B84A4E", 2: "#962030", 3: "#5E0E1C"}
 DLM = ["TT_range", "TT_speed", "TB_range", "TB_speed", "TB_space", "TD_range", "TD_speed", "LI_range", "LI_speed",
        "LL_range", "LL_speed", "UL_range", "UL_speed", "LA_range", "LA_speed"]
 SHORT = {"TT": "Tongue tip", "TB": "Tongue body", "TD": "Tongue back", "LI": "Jaw", "LL": "Lower lip", "UL": "Upper lip",
@@ -116,7 +116,7 @@ CL_LAB = {"speech_rate_syl_s": "Speech rate", "artic_rate_syl_s": "Articulation 
           "cons_centroid_hz": "Consonant centroid", "cons_hf_db": "Consonant HF", "F1_range": "F1 range", "F1_speed": "F1 speed",
           "F2_range": "F2 range", "F2_speed": "F2 speed", "F1F2_space": "F1-F2 space", "dl_composite": "DL composite",
           "TB_space": "Tongue space", "TT_range": "Tongue-tip range"}
-FAMC = {"Deep learning": P_, "Timing": "#4F6BD8", "Prosody": "#7CC6C0", "Voice quality": "#A68BB5", "Formants": "#7E57C2"}
+FAMC = {"Deep learning": P_, "Timing": "#3A7CA5", "Prosody": "#8AB6C9", "Voice quality": "#7B6FA6", "Formants": "#2A9D8F"}
 
 def rho_txt(x, y, lead="rho"):
     d = pd.DataFrame({"x": x, "y": y}).dropna(); r, p = spearmanr(d.x, d.y)
@@ -232,7 +232,7 @@ ax0.annotate("", xy=(58.6, 26.5), xytext=(56.2, 26.5), arrowprops=dict(arrowstyl
 nl = 9
 for i in range(nl):
     x = 59.2 + i * 1.65; sh = i / (nl - 1)
-    fc = LinearSegmentedColormap.from_list("enc", ["#DCE4FF", STYLE["healthy"]])(0.15 + 0.75 * sh)
+    fc = LinearSegmentedColormap.from_list("enc", ["#DCE6F2", STYLE["healthy"]])(0.15 + 0.75 * sh)
     ax0.add_patch(Polygon([(x, 17.5), (x + 1.25, 19.6), (x + 1.25, 37.0), (x, 34.9)], closed=True, fc=fc, ec="white", lw=0.4, zorder=3))
 ax0.text(66.6, 15.6, "self-supervised\nspeech encoder", fontsize=STYLE["small"] - 0.9, color=INK, ha="center", va="top", linespacing=1.15)
 ax0.annotate("", xy=(76.6, 26.5), xytext=(74.4, 26.5), arrowprops=dict(arrowstyle="-|>", color=INK2, lw=0.5, mutation_scale=5))
@@ -282,7 +282,7 @@ for k, (t, sub) in enumerate(g_specs):
     else:
         fq = T5["freq"]; sel = (IX5.cohort == "IPVS") & (IX5.label == 1)
         sp = T5["jaw"][sel.to_numpy()].mean(0); keep_ = (fq >= 1) & (fq <= 12)
-        gi.axvspan(3, 7, color=STYLE["pd"], alpha=0.18, lw=0)
+        gi.axvspan(3, 7, color=STYLE["grey"], alpha=0.3, lw=0)
         gi.plot(fq[keep_], 10 * np.log10(sp[keep_] / sp[keep_].max()), color=ACOL["LI"], lw=0.6); gi.set_xlim(1, 12)
     ax0.text(141.5, yb + 5.6, t, fontsize=STYLE["small"] - 0.7, fontweight="bold", color=INK, va="center")
     ax0.text(141.5, yb + 2.6, sub, fontsize=STYLE["small"] - 1.2, color=INK2, va="center")
@@ -302,9 +302,9 @@ ft, F = X["healthy_ftime"], X["healthy_formants"]
 axb = fig.add_subplot(gs[0, 0]); t = np.arange(len(x)) / 16000
 env = np.abs(x); axb.fill_between(t, -env, env, color=STYLE["ink"], lw=0, alpha=0.85); axb.set_xlim(0, t[-1]); axb.axis("off")
 axc = fig.add_subplot(gs[1, 0], sharex=axb); show_spec(axc, spec)
-for k, c in enumerate(["#FFFFFF", "#9DB4FF", "#7CC6C0"]):
+for k, c in enumerate(["#FFFFFF", "#A8E0D6", "#C9B8E8"]):
     axc.plot(ft, F[k] / 1000, ".", ms=1.0, color=c, mew=0)
-for k, (nm, c) in enumerate((("F1", "#FFFFFF"), ("F2", "#9DB4FF"), ("F3", "#7CC6C0"))):
+for k, (nm, c) in enumerate((("F1", "#FFFFFF"), ("F2", "#A8E0D6"), ("F3", "#C9B8E8"))):
     axc.text(0.89 + 0.035 * k, 0.94, nm, transform=axc.transAxes, ha="left", va="top", color=c, fontsize=STYLE["small"],
              fontweight="bold")
 axc.tick_params(labelbottom=False); axc.set_xlabel("")
@@ -323,7 +323,7 @@ for a in ANCHOR:
     vmax = max(vmax, np.percentile(np.hypot(*np.diff(xy, axis=0).T), 98))
 for a, (cx, cy) in ANCHOR.items():
     xy = E[:, [CI_[f"{a}X"], CI_[f"{a}Y"]]]; d = (xy - xy.mean(0)) * SCALE
-    lc = speed_line(axe, cx + d[:, 0], cy + d[:, 1], cmap=LinearSegmentedColormap.from_list("spd", ["#1F2E6E", "#26355D", "#7CC6C0", "#8E5BB5", "#E0315F"]), lw=0.55, vmax=vmax)
+    lc = speed_line(axe, cx + d[:, 0], cy + d[:, 1], cmap=LinearSegmentedColormap.from_list("spd", ["#0F1F3D", "#2E5A87", "#7FA6CF", "#C77D7F", "#B22234"]), lw=0.55, vmax=vmax)
 cax = axe.inset_axes([0.60, 0.07, 0.32, 0.025])
 cb = fig.colorbar(lc, cax=cax, orientation="horizontal"); cb.set_ticks([]); cb.outline.set_linewidth(0.3)
 cax.set_title("movement speed", fontsize=STYLE["small"] - 0.4, pad=1.5)
@@ -353,7 +353,7 @@ apply_style()
 M = load_npz("mocha_example.npz"); FR = load("mocha_frame_correlations.csv"); MS = load("mocha_sentence_summaries.csv")
 P = load("pilot_ema_recordings.csv"); CM = load("pilot_vowel_confusion_multi.csv").set_index("vowel")
 SV = load("summary_measure_validity.csv"); SVS = load("summary_measure_validity_per_speaker.csv")
-VCOL = {"a": "#B03A7E", "e": "#7E57C2", "i": "#4F6BD8", "o": "#1C2033", "u": "#2E8B8B"}
+VCOL = {"a": "#B22234", "e": "#7B6FA6", "i": "#3A7CA5", "o": "#1B2333", "u": "#2A9D8F"}
 fig = plt.figure(figsize=(STYLE["w2"], 232 * MM))
 outer = fig.add_gridspec(3, 1, left=0.11, right=0.985, bottom=0.045, top=0.955, height_ratios=[1.3, 1.08, 0.62], hspace=0.27)
 top = outer[0].subgridspec(1, 2, width_ratios=[1.7, 1], wspace=0.22)
@@ -470,8 +470,8 @@ save(fig, "Fig2_validation"); plt.show()
 md("""
 ## Figure 3 - The mouth moves less in Parkinson's disease
 **a** where movement is lost: difference in movement density, Parkinson's minus healthy (speaker-centred positions
-during reading, both datasets; dotted = region holding 90% of healthy movement); slate = space healthy speakers use that
-patients do not reach, rose = movement concentrated near the centre; **b** the same as a profile: time patients spend at
+during reading, both datasets; dotted = region holding 90% of healthy movement); navy = space healthy speakers use that
+patients do not reach, crimson = movement concentrated near the centre; **b** the same as a profile: time patients spend at
 each distance from their average position, relative to healthy speakers (every articulator: more time near the centre,
 fewer large excursions); **c** all measures, pooled over both languages (diamond, 95% CI drawn as density; open markers =
 English and Italian estimates; number = pooled difference in SD), with FDR stars (bold = sensor-validated); **d** the four
@@ -507,7 +507,7 @@ cax.set_title("movement density, PD - healthy", fontsize=STYLE["small"] - 0.5, p
 axb = fig.add_subplot(r1[1])
 XX, YY = np.meshgrid(ctr, ctr, indexing="ij"); RR = np.hypot(XX, YY)
 rb = np.linspace(0, 2.85, 17); rc = (rb[:-1] + rb[1:]) / 2
-axb.axhspan(0, 60, color=STYLE["pd"], alpha=0.06, lw=0); axb.axhspan(-60, 0, color=STYLE["healthy"], alpha=0.07, lw=0)
+axb.axhspan(0, 60, color="#F4F4F5", lw=0); axb.axhspan(-60, 0, color="#EDF1F6", lw=0)
 allpr = []
 for a in ["TT", "TB", "TD", "LI", "LL", "UL"]:
     lr = []
@@ -676,7 +676,7 @@ def sev_scatter(ax, sc, meas, xlab, ylab=None):
         if d[sc].iloc[i].nunique() > 1:
             fits.append(np.polyval(np.polyfit(d[sc].iloc[i], d[meas].iloc[i], 1), xs))
     lo, hi = np.percentile(fits, [2.5, 97.5], axis=0)
-    ax.fill_between(xs, lo, hi, color=P_, alpha=0.12, lw=0)
+    ax.fill_between(xs, lo, hi, color=STYLE["grey"], alpha=0.25, lw=0)
     ax.plot(xs, np.polyval(np.polyfit(d[sc], d[meas], 1), xs), color=P_, lw=1.0)
     ax.scatter(d[sc] + rng.uniform(-0.08, 0.08, len(d)), d[meas], s=16, c=[SEVC[int(v)] for v in d.updrs2], edgecolor=STYLE["ink2"],
                lw=0.3, zorder=3)
@@ -752,7 +752,7 @@ md("""
 ## Figure 5 - Two tremor sources: the mouth and the voice box
 **a-b** jaw movement during a sustained /a/ (typical healthy vs typical Parkinson's, Italian) and its time-frequency map
 (dashed = 3-7 Hz tremor band); **c** spectral fingerprint of every Italian speaker: jaw-movement spectrum relative to the
-healthy average, speakers sorted by 3-7 Hz tremor share (left strip: slate healthy, rose Parkinson's); **d** group
+healthy average, speakers sorted by 3-7 Hz tremor share (left strip: navy healthy, crimson Parkinson's); **d** group
 spectra (mean +/- SE) and their difference with 95% CI; black bars = frequencies where the groups differ (Welch t-test,
 p < 0.05, uncorrected); **e** 3-7 Hz jaw tremor per speaker; **f** loudness tremor per speaker, phone recordings;
 **g** mouth and voice-box tremor are unrelated within speakers; **h** tremor AUC for every site, dataset and recording band
@@ -774,7 +774,7 @@ for j, (lb, nm, col) in enumerate(((0, "Healthy", STYLE["healthy"]), (1, "Parkin
     sub = top[j].subgridspec(2, 1, height_ratios=[0.42, 1], hspace=0.05)
     a1 = fig.add_subplot(sub[0]); a2 = fig.add_subplot(sub[1], sharex=a1); tops.append(a1)
     sig = T[key + "sig"]; tt = np.arange(len(sig)) / float(T[key + "fs"])
-    a1.fill_between(tt, sig.min(), sig, color=col, alpha=0.18, lw=0); a1.plot(tt, sig, color=col, lw=0.55)
+    a1.fill_between(tt, sig.min(), sig, color=STYLE["grey"], alpha=0.2, lw=0); a1.plot(tt, sig, color=col, lw=0.55)
     a1.set_yticks([]); a1.spines["left"].set_visible(False); a1.tick_params(labelbottom=False); a1.set_xlim(0, tt[-1])
     a1.set_title(f"{nm}, sustained /a/", loc="left", color=col, fontweight="bold")
     tf, ff, tm = T[key + "tf"], T[key + "f"], T[key + "t"]; keep = (ff >= 1) & (ff <= 12)
@@ -818,14 +818,14 @@ axd = fig.add_subplot(subd[0]); axd2 = fig.add_subplot(subd[1], sharex=axd)
 L0, L1 = Lall[labs == 0], Lall[labs == 1]
 for L, col, nm in ((L0, STYLE["healthy"], "Healthy"), (L1, STYLE["pd"], "Parkinson's")):
     mu, se = L.mean(0), L.std(0) / np.sqrt(len(L))
-    axd.fill_between(f, mu - se, mu + se, color=col, alpha=0.22, lw=0); axd.plot(f, mu, color=col, lw=1.0, label=f"{nm} (n = {len(L)})")
+    axd.fill_between(f, mu - se, mu + se, color=col, alpha=0.15, lw=0); axd.plot(f, mu, color=col, lw=1.0, label=f"{nm} (n = {len(L)})")
 mu_all = np.r_[L0.mean(0)[keep], L1.mean(0)[keep]]
 axd.set_xlim(1, 12); axd.set_ylim(mu_all.min() - 3, mu_all.max() + 6); axd.set_ylabel("Jaw power share (dB)")
 axd.axvspan(3, 7, color=STYLE["band"], lw=0, zorder=0); axd.tick_params(labelbottom=False)
 axd.legend(loc="upper right", fontsize=STYLE["small"] - 0.3)
 dd = L1.mean(0) - L0.mean(0); sed = np.sqrt(L1.var(0) / len(L1) + L0.var(0) / len(L0))
 axd2.axvspan(3, 7, color=STYLE["band"], lw=0, zorder=0)
-axd2.fill_between(f, dd - 1.96 * sed, dd + 1.96 * sed, color=STYLE["pd"], alpha=0.18, lw=0)
+axd2.fill_between(f, dd - 1.96 * sed, dd + 1.96 * sed, color=STYLE["grey"], alpha=0.3, lw=0)
 axd2.plot(f, dd, color=STYLE["pd"], lw=0.9); axd2.axhline(0, color=STYLE["ink2"], lw=0.5)
 pv = ttest_ind(L1, L0, axis=0, equal_var=False).pvalue; df_ = np.median(np.diff(f))
 m_ = np.nanmax(np.abs(np.r_[(dd - 1.96 * sed)[keep], (dd + 1.96 * sed)[keep]])) * 1.15
@@ -861,7 +861,7 @@ def auc_e(sec, meas):
 axi = fig.add_subplot(r3[1]); ygrid(axi, "x")
 items = [("mouth_LI", "Jaw"), ("mouth_TT", "Tongue tip"), ("mouth_TB", "Tongue body"), ("mouth_TD", "Tongue back"),
          ("mouth_LL", "Lower lip"), ("voice_loudness", "Voice loudness"), ("voice_pitch", "Voice pitch")]
-axi.axvspan(0.5, 1, color=P_, alpha=0.05, lw=0); axi.axvspan(0, 0.5, color=H_, alpha=0.05, lw=0)
+axi.axvspan(0.5, 1, color="#F4F4F5", lw=0); axi.axvspan(0, 0.5, color="#EDF1F6", lw=0)
 for i, (mm, nm) in enumerate(items):
     y0 = len(items) - 1 - i
     a1, q1 = auc_e("D IPVS vowels (clean)", mm); a2, _ = auc_e("D IPVS vowels (phone)", mm); a3, q3 = auc_e("D FIGSHARE vowels (clean)", mm)
@@ -917,8 +917,8 @@ axa = fig.add_subplot(r1[0]); ygrid(axa, "x")
 y = np.arange(len(order))[::-1]
 for i_, yi_ in enumerate(y):
     if i_ % 2 == 0:
-        axa.axhspan(yi_ - 0.5, yi_ + 0.5, color="#F4F2F7", lw=0, zorder=0)
-fam = lambda n: P_ if n.startswith("deep") else "#8A1238" if "+" in n else H_
+        axa.axhspan(yi_ - 0.5, yi_ + 0.5, color="#F2F4F7", lw=0, zorder=0)
+fam = lambda n: P_ if n.startswith("deep") else "#6E1020" if "+" in n else H_
 for yi, n in zip(y, order):
     c = fam(n)
     for coh, dy, filled in (("MDVR reading", 0.17, True), ("IPVS reading", -0.17, False)):
@@ -926,7 +926,7 @@ for yi, n in zip(y, order):
         if not len(r_):
             continue
         r_ = r_.iloc[0]
-        eye(axa, yi + dy, r_.auc, r_.auc_lo, r_.auc_hi, c, h=0.15, alpha=0.40 if filled else 0.16)
+        eye(axa, yi + dy, r_.auc, r_.auc_lo, r_.auc_hi, STYLE["grey"], h=0.15, alpha=0.45 if filled else 0.22)
         axa.scatter(r_.auc, yi + dy, s=15, color=c if filled else "white", edgecolor=c, lw=0.7, zorder=4)
         if filled:
             axa.text(min(r_.auc_hi + 0.01, 0.97), yi + dy, f"{r_.auc:.2f}", va="center", fontsize=STYLE["small"] - 0.7, color=STYLE["ink2"])
@@ -950,7 +950,7 @@ for coh, nm in (("MDVR reading", "English"), ("IPVS reading", "Italian")):
     for _, r_ in F[F.cohort == coh].iterrows():
         rows.append(r_); ys.append(yc); yc -= 0.78
     yc -= 0.2
-axb.axvspan(-2, 0, color="#F4F2F7", lw=0, zorder=0)
+axb.axvspan(-2, 0, color="#F2F4F7", lw=0, zorder=0)
 for r_, y0 in zip(rows, ys):
     axb.annotate("", xy=(r_.dl_beta, y0), xytext=(r_.classic_beta, y0),
                  arrowprops=dict(arrowstyle="-|>", color="#B7B3C2", lw=0.9, mutation_scale=6, shrinkA=3.5, shrinkB=3.5))
@@ -967,7 +967,7 @@ axb.text(0.8, 0.62, "larger in PD", ha="center", va="bottom", fontsize=STYLE["sm
 axb.scatter([], [], s=18, color=H_, label="Classic formants"); axb.scatter([], [], s=18, color=P_, label="Network")
 axb.legend(loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=2)
 axc = fig.add_subplot(r1[2]); axc.set_xlim(-2.05, 2.05); axc.set_ylim(-5.0, 2.15); axc.set_aspect("equal"); axc.axis("off")
-MIX = "#7A3E73"
+MIX = "#4A4E69"
 for k, (coh, nm) in enumerate((("MDVR reading", "English"), ("IPVS reading", "Italian"))):
     uu = UQ[UQ.cohort == coh]
     if not len(uu):
@@ -976,7 +976,7 @@ for k, (coh, nm) in enumerate((("MDVR reading", "English"), ("IPVS reading", "It
     rC, rD = 1.0, 0.95; dist = rC + rD - 2 * rD * (1 - u)
     cC, cD = (-dist / 2, cy), (dist / 2, cy)
     circC = plt.Circle(cC, rC, fc=H_, alpha=0.16, ec="none", zorder=2)
-    circD = plt.Circle(cD, rD, fc=P_, alpha=0.22, ec="none", zorder=2)
+    circD = plt.Circle(cD, rD, fc="#ECEEF2", alpha=1.0, ec="none", zorder=2)
     axc.add_patch(circC); axc.add_patch(circD)
     ov = plt.Circle(cD, rD, fc=MIX, alpha=0.30, ec="none", zorder=3); axc.add_patch(ov); ov.set_clip_path(circC)
     axc.add_patch(plt.Circle(cC, rC, fill=False, ec=H_, lw=1.0, zorder=4))
@@ -1044,9 +1044,9 @@ def pca_map(ax, cols, title):
     for lb, col in ((0, H_), (1, P_)):
         kd = gaussian_kde(pcs[lab == lb].T, bw_method=0.75)(np.vstack([gx.ravel(), gy.ravel()])).reshape(gx.shape)
         lv8 = hdr_level(kd, 0.8)
-        ax.contourf(gx, gy, kd, levels=[lv8, kd.max() * 1.01], colors=[col], alpha=0.07)
+        ax.contourf(gx, gy, kd, levels=[lv8, kd.max() * 1.01], colors=[STYLE["grey"]], alpha=0.10)
         lv = hdr_level(kd, 0.5)
-        ax.contourf(gx, gy, kd, levels=[lv, kd.max() * 1.01], colors=[col], alpha=0.14)
+        ax.contourf(gx, gy, kd, levels=[lv, kd.max() * 1.01], colors=[STYLE["grey"]], alpha=0.16)
         ax.contour(gx, gy, kd, levels=[lv], colors=[col], linewidths=0.8)
         ax.scatter(pcs[lab == lb, 0], pcs[lab == lb, 1], s=10, color=col, edgecolor="white", lw=0.3, zorder=3)
         ax.scatter(*pcs[lab == lb].mean(0), s=40, marker="X", color=col, edgecolor="white", lw=0.5, zorder=4)
@@ -1092,7 +1092,7 @@ axa = fig.add_subplot(gs[0]); rng = np.random.default_rng(7)
 for j, c in enumerate(cols):
     lo, hi = np.nanpercentile(hc[c], [10, 90])
     axa.add_patch(FancyBboxPatch((xpos[j] - 0.38, lo), 0.76, hi - lo, boxstyle="round,pad=0,rounding_size=0.12",
-                                 mutation_aspect=0.6, fc="#E7E5EE", ec="none", zorder=1))
+                                 mutation_aspect=0.6, fc="#E6E9EE", ec="none", zorder=1))
     v = pdz[c].dropna().to_numpy(); vc = np.clip(v, -4.2, 3.2)
     axa.scatter(xpos[j] + rng.uniform(-0.27, 0.27, len(v)), vc, s=5, color=P_, alpha=0.55, lw=0, zorder=3)
     md_ = np.median(v)
@@ -1113,7 +1113,7 @@ for nm, x0, x1 in spans:
 axa.text(-0.45, 4.3, "patients below the healthy range (healthy: 10%)", ha="left", va="bottom", fontsize=STYLE["small"] - 0.9, color=INK2)
 from matplotlib.patches import Patch
 from matplotlib.lines import Line2D as _L2
-axa.legend(handles=[Patch(color="#E7E5EE", label="healthy, central 80%"),
+axa.legend(handles=[Patch(color="#E6E9EE", label="healthy, central 80%"),
                     _L2([], [], marker="o", ls="", color=P_, alpha=0.6, ms=3, label="patient"),
                     _L2([], [], color=INK, lw=1.6, label="patient median")],
            loc="lower left", bbox_to_anchor=(0.0, 1.05), ncol=3, fontsize=STYLE["small"] - 0.6, handletextpad=0.3)
@@ -1387,7 +1387,7 @@ for _ in range(600):
     if d.hy.iloc[i].nunique() > 1:
         fits.append(np.polyval(np.polyfit(d.hy.iloc[i], d.LL_range.iloc[i], 1), xs))
 lo, hi = np.percentile(fits, [2.5, 97.5], axis=0)
-ax.fill_between(xs, lo, hi, color=P_, alpha=0.12, lw=0); ax.plot(xs, np.polyval(np.polyfit(d.hy, d.LL_range, 1), xs), color=P_, lw=1.0)
+ax.fill_between(xs, lo, hi, color=STYLE["grey"], alpha=0.25, lw=0); ax.plot(xs, np.polyval(np.polyfit(d.hy, d.LL_range, 1), xs), color=P_, lw=1.0)
 ax.scatter(d.hy + rng.uniform(-0.06, 0.06, len(d)), d.LL_range, s=18, c=[SEVC[int(v)] for v in d.updrs2], edgecolor=STYLE["ink2"], lw=0.3, zorder=3)
 ax.text(0.97, 0.97, rho_txt(d.hy, d.LL_range), transform=ax.transAxes, ha="right", va="top", fontsize=STYLE["small"] - 0.2)
 ax.set_xlabel("Hoehn & Yahr stage"); ax.set_ylabel("Lower-lip range"); ygrid(ax)
