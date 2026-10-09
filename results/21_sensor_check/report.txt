@@ -1,0 +1,57 @@
+  fsew0_v1.1: 920 wav/ema files
+  msak0_v1.1: 920 wav/ema files
+  maps0: 919 wav/ema files
+  SPARC 'multi' loaded
+  fsew0: 460 sentences; EMA channels in file: ['ui_x', 'li_x', 'ul_x', 'll_x', 'tt_x', 'ui_y', 'li_y', 'ul_y', 'll_y', 'tt_y', 'tb_x', 'td_x', 'v_x', '****', 'bn_x', 'tb_y', 'td_y', 'v_y', '****', 'bn_y']; frames x channels (966, 20)
+  fsew0: 460 sentences analysed
+  msak0: 460 sentences; EMA channels in file: ['ui_x', 'li_x', 'ul_x', 'll_x', 'tt_x', 'ui_y', 'li_y', 'ul_y', 'll_y', 'tt_y', 'tb_x', 'td_x', 'v_x', '****', 'bn_x', 'tb_y', 'td_y', 'v_y', '****', 'bn_y']; frames x channels (1184, 20)
+  msak0: 460 sentences analysed
+  maps0: 460 sentences; EMA channels in file: ['ui_x', 'li_x', 'ul_x', 'll_x', 'tt_x', 'ui_y', 'li_y', 'ul_y', 'll_y', 'tt_y', 'tb_x', 'td_x', '****', '****', 'bn_x', 'tb_y', 'td_y', '****', '****', 'bn_y']; frames x channels (1335, 20)
+  maps0: 458 sentences analysed
+
+==============================================================================================================
+1. FRAME-LEVEL TRAJECTORY AGREEMENT (sanity check; SPARC paper reports ~0.74 on MOCHA after alignment)
+==============================================================================================================
+channel   LIX   LIY   LLX   LLY   TBX   TBY   TDX   TDY   TTX   TTY   ULX   ULY
+speaker                                                                        
+fsew0    0.54  0.84  0.55  0.86  0.76  0.87  0.72  0.85  0.80  0.78  0.64  0.75
+maps0    0.65  0.80 -0.05  0.82  0.73  0.86  0.74  0.90  0.66  0.81  0.75  0.50
+msak0    0.74  0.83  0.79  0.87  0.81  0.82  0.78  0.85  0.85  0.79  0.62  0.84
+  median over channels and speakers: 0.79 (sign shows whether an axis is flipped between the two coordinate systems)
+
+==============================================================================================================
+2. SUMMARY MEASURES: do estimated range / speed per sentence track the REAL sensor values? (within speaker)
+==============================================================================================================
+ measure  median_spearman  min_spearman  speakers  pooled_spearman   p    n  used_in_step20_findings  passes
+LL_speed            0.612         0.471         3            0.568 0.0 1378                     True    True
+TB_space            0.558         0.453         3            0.547 0.0 1378                     True    True
+LL_range            0.542         0.506         3            0.548 0.0 1378                     True    True
+TT_range            0.508         0.480         3            0.532 0.0 1378                     True    True
+LI_range            0.500         0.401         3            0.479 0.0 1378                     True   False
+TB_speed            0.470         0.467         3            0.482 0.0 1378                     True   False
+TD_speed            0.427         0.358         3            0.431 0.0 1378                     True   False
+TD_range            0.409         0.398         3            0.443 0.0 1378                     True   False
+TT_speed            0.407         0.375         3            0.435 0.0 1378                     True   False
+LI_speed            0.372         0.363         3            0.385 0.0 1378                     True   False
+LA_speed            0.569         0.381         3            0.524 0.0 1378                    False    True
+TB_range            0.489         0.481         3            0.515 0.0 1378                    False   False
+UL_speed            0.372         0.357         3            0.427 0.0 1378                    False   False
+UL_range            0.335         0.085         3            0.308 0.0 1378                    False   False
+LA_range            0.333         0.269         3            0.360 0.0 1378                    False   False
+
+==============================================================================================================
+3. VERDICT (pre-specified: median within-speaker rho >= 0.5 for each measure behind the step-20 findings)
+==============================================================================================================
+  4/10 key measures pass
+    LL_speed   median rho +0.61 (min +0.47)  PASS
+    TB_space   median rho +0.56 (min +0.45)  PASS
+    LL_range   median rho +0.54 (min +0.51)  PASS
+    TT_range   median rho +0.51 (min +0.48)  PASS
+    LI_range   median rho +0.50 (min +0.40)  FAIL
+    TB_speed   median rho +0.47 (min +0.47)  FAIL
+    TD_speed   median rho +0.43 (min +0.36)  FAIL
+    TD_range   median rho +0.41 (min +0.40)  FAIL
+    TT_speed   median rho +0.41 (min +0.38)  FAIL
+    LI_speed   median rho +0.37 (min +0.36)  FAIL
+
+saved: summary_measure_validity*.csv, frame_level_agreement.csv, mocha_*.csv, report_sensor_check.md, fig51

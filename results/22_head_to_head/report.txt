@@ -1,0 +1,112 @@
+label         0.0  1.0
+cohort                
+IPVS reading   20   25
+MDVR reading   21   16
+
+==============================================================================================================
+1. PD vs HEALTHY: cross-validated AUC (50 x 5-fold; sex included in every model)
+==============================================================================================================
+      cohort                                   feature_set  n_features   auc  auc_lo  auc_hi
+IPVS reading                        classic timing/prosody           5 0.863   0.826   0.887
+IPVS reading                         classic voice quality           5 0.985   0.975   0.990
+IPVS reading classic articulation (incl. formant movement)           8 0.850   0.818   0.879
+IPVS reading                                   all classic          18 0.981   0.967   0.990
+IPVS reading           deep learning (validated composite)           1 0.676   0.607   0.727
+IPVS reading                        deep learning (all 15)          15 0.833   0.751   0.886
+IPVS reading                    all classic + DL composite          19 0.980   0.969   0.990
+IPVS reading                          all classic + DL all          33 0.964   0.946   0.990
+MDVR reading                        classic timing/prosody           5 0.769   0.718   0.800
+MDVR reading                         classic voice quality           5 0.865   0.812   0.913
+MDVR reading classic articulation (incl. formant movement)           8 0.828   0.760   0.878
+MDVR reading                                   all classic          18 0.844   0.780   0.905
+MDVR reading           deep learning (validated composite)           1 0.826   0.786   0.856
+MDVR reading                        deep learning (all 15)          15 0.764   0.701   0.807
+MDVR reading                    all classic + DL composite          19 0.870   0.804   0.926
+MDVR reading                          all classic + DL all          33 0.891   0.829   0.942
+
+      cohort                                                                comparison  delta_auc  share_repeats_better
+IPVS reading                               all classic + DL composite  vs  all classic     -0.001                  0.26
+IPVS reading                                     all classic + DL all  vs  all classic     -0.017                  0.04
+IPVS reading deep learning (all 15)  vs  classic articulation (incl. formant movement)     -0.017                  0.36
+MDVR reading                               all classic + DL composite  vs  all classic      0.026                  0.96
+MDVR reading                                     all classic + DL all  vs  all classic      0.048                  0.94
+MDVR reading deep learning (all 15)  vs  classic articulation (incl. formant movement)     -0.064                  0.04
+
+==============================================================================================================
+2. DOES THE DL COMPOSITE ADD TO THE BEST CLASSIC PREDICTORS? (logistic, likelihood-ratio test)
+==============================================================================================================
+      cohort                     best_classic  n  lr_chi2      p  or_per_sd
+IPVS reading   hammarberg_db, h1h2_db, hnr_db 45   0.0004 0.9832     0.7578
+MDVR reading F2_speed, h1h2_db, hammarberg_db 37   9.5940 0.0020    27.4927
+
+==============================================================================================================
+3. SEVERITY (MDVR patients): deep learning vs classic, and DL controlling for the best classic measure
+==============================================================================================================
+ scale                                      measure                 kind  n    rho     p  ci_lo  ci_hi
+    hy                                 dl_composite        deep learning 16  0.810 0.000    NaN    NaN
+    hy                                     TB_space        deep learning 16 -0.781 0.000    NaN    NaN
+    hy                                     TT_range        deep learning 16 -0.606 0.013    NaN    NaN
+    hy                            speech_rate_syl_s              classic 16 -0.830 0.000    NaN    NaN
+    hy                                  pause_ratio              classic 16  0.567 0.022    NaN    NaN
+    hy                                     f0_sd_st              classic 16 -0.337 0.202    NaN    NaN
+    hy                                   F1F2_space              classic 16 -0.110 0.685    NaN    NaN
+    hy                                     F2_speed              classic 16  0.162 0.549    NaN    NaN
+    hy                             cons_centroid_hz              classic 16 -0.629 0.009    NaN    NaN
+    hy dl_composite | controlling speech_rate_syl_s              partial 16  0.106 0.696    NaN    NaN
+    hy        dl_composite | controlling F1F2_space              partial 16  0.738 0.001    NaN    NaN
+    hy       |rho DL composite| - |rho speech rate| bootstrap difference 16 -0.015   NaN -0.192  0.128
+updrs3                                 dl_composite        deep learning 16  0.751 0.001    NaN    NaN
+updrs3                                     TB_space        deep learning 16 -0.813 0.000    NaN    NaN
+updrs3                                     TT_range        deep learning 16 -0.695 0.003    NaN    NaN
+updrs3                            speech_rate_syl_s              classic 16 -0.757 0.001    NaN    NaN
+updrs3                                  pause_ratio              classic 16  0.495 0.051    NaN    NaN
+updrs3                                     f0_sd_st              classic 16 -0.371 0.157    NaN    NaN
+updrs3                                   F1F2_space              classic 16  0.039 0.886    NaN    NaN
+updrs3                                     F2_speed              classic 16  0.389 0.136    NaN    NaN
+updrs3                             cons_centroid_hz              classic 16 -0.575 0.020    NaN    NaN
+updrs3 dl_composite | controlling speech_rate_syl_s              partial 16  0.206 0.444    NaN    NaN
+updrs3        dl_composite | controlling F1F2_space              partial 16  0.779 0.000    NaN    NaN
+updrs3       |rho DL composite| - |rho speech rate| bootstrap difference 16 -0.004   NaN -0.208  0.166
+updrs2                                 dl_composite        deep learning 16  0.884 0.000    NaN    NaN
+updrs2                                     TB_space        deep learning 16 -0.870 0.000    NaN    NaN
+updrs2                                     TT_range        deep learning 16 -0.707 0.002    NaN    NaN
+updrs2                            speech_rate_syl_s              classic 16 -0.746 0.001    NaN    NaN
+updrs2                                  pause_ratio              classic 16  0.329 0.213    NaN    NaN
+updrs2                                     f0_sd_st              classic 16 -0.191 0.478    NaN    NaN
+updrs2                                   F1F2_space              classic 16  0.044 0.871    NaN    NaN
+updrs2                                     F2_speed              classic 16  0.367 0.162    NaN    NaN
+updrs2                             cons_centroid_hz              classic 16 -0.539 0.031    NaN    NaN
+updrs2 dl_composite | controlling speech_rate_syl_s              partial 16  0.785 0.000    NaN    NaN
+updrs2        dl_composite | controlling F1F2_space              partial 16  0.891 0.000    NaN    NaN
+updrs2       |rho DL composite| - |rho speech rate| bootstrap difference 16  0.142   NaN  0.013  0.343
+
+==============================================================================================================
+4. UNIQUE INFORMATION: how much of the DL composite can ALL classic features predict? (cross-validated R2)
+==============================================================================================================
+      cohort  n  cv_r2_classic_predicts_dl  unique_share
+IPVS reading 45                      0.326         0.674
+MDVR reading 37                      0.500         0.500
+
+==============================================================================================================
+5. CAN A CLASSIC FORMANT-BASED STAND-IN REPRODUCE THE ARTICULATOR FINDINGS? (PD - healthy, sex/age adjusted)
+==============================================================================================================
+      cohort             movement classic_measure  classic_beta  classic_p dl_measure  dl_beta  dl_p  rho_classic_vs_dl
+IPVS reading          jaw opening        F1_range         0.278      0.334   LI_range   -0.961 0.005              0.377
+IPVS reading            jaw speed        F1_speed         0.010      0.973   LI_speed   -1.194 0.000              0.224
+IPVS reading    tongue front-back        F2_range         0.113      0.664   TB_range   -0.341 0.260              0.253
+IPVS reading         tongue speed        F2_speed        -0.589      0.054   TB_speed   -0.545 0.101             -0.053
+IPVS reading tongue working space      F1F2_space         0.562      0.041   TB_space   -0.372 0.226              0.156
+MDVR reading          jaw opening        F1_range         0.571      0.055   LI_range   -0.718 0.098              0.271
+MDVR reading            jaw speed        F1_speed         0.876      0.005   LI_speed   -0.696 0.069              0.225
+MDVR reading    tongue front-back        F2_range        -0.037      0.934   TB_range   -1.021 0.003              0.153
+MDVR reading         tongue speed        F2_speed         1.184      0.012   TB_speed   -0.790 0.036             -0.184
+MDVR reading tongue working space      F1F2_space         0.867      0.006   TB_space   -1.268 0.001             -0.256
+
+==============================================================================================================
+VERDICT
+==============================================================================================================
+      cohort  auc_all_classic  auc_dl_composite  auc_classic_plus_dl  delta  lr_p  unique_share
+IPVS reading            0.981             0.676                 0.98 -0.001 0.983         0.674
+MDVR reading            0.844             0.826                 0.87  0.026 0.002         0.500
+
+saved: h2h_*.csv, speaker_table_dl_and_classic.csv, classic_features_recordings.csv, report_head_to_head.md, fig52-53

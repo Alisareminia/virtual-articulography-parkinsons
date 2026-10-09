@@ -1,0 +1,16 @@
+{
+  "id": "alisaremi/pd-voice-21-sensor-check",
+  "title": "PD Voice 21 Sensor Check",
+  "code_file": "sensor_check.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": [],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": []
+}

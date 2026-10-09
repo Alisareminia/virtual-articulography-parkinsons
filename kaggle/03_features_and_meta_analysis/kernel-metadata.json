@@ -1,0 +1,16 @@
+{
+  "id": "alisaremi/pd-voice-03-features-and-meta-analysis",
+  "title": "PD Voice 03 Features and Meta Analysis",
+  "code_file": "features.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": [],
+  "dataset_sources": ["anshsavla/italian-parkinsons-speech"],
+  "kernel_sources": ["alisaremi/pd-voice-02-clean-and-shortcut-tests"],
+  "competition_sources": [],
+  "model_sources": []
+}

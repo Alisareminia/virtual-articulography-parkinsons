@@ -1,0 +1,53 @@
+# Allow-list: nothing is committed unless it is listed below.
+*
+!*/
+!/.gitignore
+!/README.md
+!/requirements.txt
+
+# pipeline code (Kaggle kernels used by the paper)
+!kaggle/01_data_audit/**
+!kaggle/02_clean_and_shortcut_tests/**
+!kaggle/03_features_and_meta_analysis/**
+!kaggle/19_virtual_articulography_pilot/**
+!kaggle/20_mouth_bradykinesia/**
+!kaggle/21_sensor_check/**
+!kaggle/22_head_to_head/**
+!kaggle/24_figure_assets/**
+!kaggle/25_figures_v5/**
+!kaggle/26_listening/**
+
+# local tools
+!tools/pull_outputs.py
+!tools/build_figures_v5.py
+!tools/figure_v5_cells.py
+
+# derived results (hashed speaker IDs; no audio)
+!results/19_virtual_articulography_pilot/**
+!results/20_mouth_bradykinesia/**
+!results/21_sensor_check/**
+!results/22_head_to_head/**
+!results/24_figure_assets/**
+
+# figures and tables
+!paper/figures_v5/**
+!paper/tables/**
+
+# never committed, even inside allowed folders
+*.log
+progress.txt
+*.ogg
+*.wav
+*.mp3
+.DS_Store
+.ipynb_checkpoints/
+# asset files that contain audio from MDVR-KCL / audio and sensor data from MOCHA-TIMIT (licence: not redistributed)
+results/24_figure_assets/example_reading.npz
+results/24_figure_assets/mocha_example.npz
+# credentials must never enter the repository
+kaggle.json
+access_token
+
+# folders that are never part of the repository
+/.venv/
+/audible_*/

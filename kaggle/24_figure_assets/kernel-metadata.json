@@ -1,0 +1,21 @@
+{
+  "id": "alisaremi/pd-voice-24-figure-assets",
+  "title": "PD Voice 24 Figure Assets",
+  "code_file": "figure_assets.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": [],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "alisaremi/pd-voice-02-clean-and-shortcut-tests",
+    "alisaremi/pd-voice-03-features-and-meta-analysis",
+    "alisaremi/pd-voice-20-mouth-bradykinesia",
+    "alisaremi/pd-voice-22-head-to-head"
+  ],
+  "competition_sources": [],
+  "model_sources": []
+}

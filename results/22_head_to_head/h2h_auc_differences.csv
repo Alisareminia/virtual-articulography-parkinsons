@@ -1,0 +1,7 @@
+cohort,comparison,delta_auc,share_repeats_better
+IPVS reading,all classic + DL composite  vs  all classic,-0.0009600000000000053,0.26
+IPVS reading,all classic + DL all  vs  all classic,-0.016960000000000006,0.04
+IPVS reading,deep learning (all 15)  vs  classic articulation (incl. formant movement),-0.016680000000000007,0.36
+MDVR reading,all classic + DL composite  vs  all classic,0.026249999999999992,0.96
+MDVR reading,all classic + DL all  vs  all classic,0.04773809523809524,0.94
+MDVR reading,deep learning (all 15)  vs  classic articulation (incl. formant movement),-0.06440476190476191,0.04

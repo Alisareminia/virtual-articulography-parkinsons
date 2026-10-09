@@ -1,0 +1,19 @@
+{
+  "id": "alisaremi/pd-voice-01-data-audit",
+  "title": "PD Voice 01 Data Audit",
+  "code_file": "audit.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": [],
+  "dataset_sources": [
+    "anshsavla/italian-parkinsons-speech",
+    "drishyatomar/voice-samples-for-parkinsons-and-healthy-controls"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": []
+}

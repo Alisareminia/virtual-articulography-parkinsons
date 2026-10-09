@@ -1,0 +1,200 @@
+  SPARC 'multi' loaded
+
+==============================================================================================================
+A. FINGER-TAPPING TEST OF THE MOUTH (IPVS: one 5-s 'pa' file and one 5-s 'ta' file per speaker)
+==============================================================================================================
+  validity: lips close more in one file AND the tongue tip rises more in the other (healthy speakers decide):
+  group  n pa_file  lip_closure_f1_minus_f2  p_lips  tongue_tip_f1_minus_f2  p_tongue  consistent
+healthy 21      D1                  -0.5723  0.0016                 -0.0229    0.7079       False
+     PD 25      D1                  -1.4183  0.0000                 -0.1734    0.0219        True
+    all 46      D1                  -1.0321  0.0000                 -0.1047    0.1384        True
+  -> 'pa' file = D1; pa/ta validity in healthy speakers: NOT PASSED
+                      section            measure task articulator     quantity  primary  n_pd  n_hc  median_pd  median_hc      g   beta     p   auc     q
+A pa/ta (validity NOT passed)          pa_LA_amp   pa lip opening          amp     True    25    21      2.298      3.140  0.031 -0.083 0.784 0.478 0.952
+A pa/ta (validity NOT passed)        pa_LA_speed   pa lip opening        speed     True    25    21     45.946     40.887  0.689  0.596 0.060 0.684 0.239
+A pa/ta (validity NOT passed)      pa_LA_rate_hz   pa lip opening      rate_hz     True    25    21      2.381      1.852  0.428  0.585 0.046 0.658 0.239
+A pa/ta (validity NOT passed)    pa_LA_rhythm_cv   pa lip opening    rhythm_cv     True    25    21      0.270      0.274 -0.204 -0.043 0.886 0.457 0.952
+A pa/ta (validity NOT passed)       pa_LA_fading   pa lip opening       fading     True    25    21     -0.034     -0.021  0.017 -0.021 0.952 0.451 0.952
+A pa/ta (validity NOT passed) pa_LA_fading_slope   pa lip opening fading_slope     True    25    21     -0.306     -0.071 -0.019 -0.062 0.850 0.467 0.952
+A pa/ta (validity NOT passed)          ta_TT_amp   ta  tongue tip          amp     True    25    21      1.509      1.860 -0.369 -0.501 0.109 0.413 0.262
+A pa/ta (validity NOT passed)        ta_TT_speed   ta  tongue tip        speed     True    25    21     26.290     27.144 -0.396 -0.527 0.137 0.396 0.274
+A pa/ta (validity NOT passed)      ta_TT_rate_hz   ta  tongue tip      rate_hz     True    25    21      2.632      2.632  0.351  0.397 0.189 0.586 0.323
+A pa/ta (validity NOT passed)    ta_TT_rhythm_cv   ta  tongue tip    rhythm_cv     True    25    21      0.324      0.331 -0.059  0.085 0.775 0.509 0.952
+A pa/ta (validity NOT passed)       ta_TT_fading   ta  tongue tip       fading     True    25    21     -0.112     -0.046 -0.537 -0.557 0.106 0.350 0.262
+A pa/ta (validity NOT passed) ta_TT_fading_slope   ta  tongue tip fading_slope     True    25    21     -1.476     -0.735 -0.677 -0.690 0.028 0.339 0.239
+A pa/ta (validity NOT passed)          pa_LI_amp   pa         jaw          amp    False    25    21      2.082      2.749 -0.605 -0.678 0.021 0.328   NaN
+A pa/ta (validity NOT passed)        pa_LI_speed   pa         jaw        speed    False    25    21     27.018     28.510 -0.263 -0.299 0.366 0.448   NaN
+A pa/ta (validity NOT passed)          pa_TB_amp   pa tongue body          amp    False    25    21      1.195      1.886 -1.035 -1.209 0.000 0.227   NaN
+A pa/ta (validity NOT passed)        pa_TB_speed   pa tongue body        speed    False    25    21     18.855     22.468 -1.121 -1.263 0.000 0.202   NaN
+A pa/ta (validity NOT passed)          ta_LI_amp   ta         jaw          amp    False    25    21      1.992      2.373 -0.496 -0.613 0.045 0.377   NaN
+A pa/ta (validity NOT passed)        ta_LI_speed   ta         jaw        speed    False    25    21     29.131     34.262 -0.895 -0.969 0.008 0.257   NaN
+A pa/ta (validity NOT passed)          ta_TB_amp   ta tongue body          amp    False    25    21      1.252      1.738 -0.855 -1.019 0.001 0.270   NaN
+A pa/ta (validity NOT passed)        ta_TB_speed   ta tongue body        speed    False    25    21     20.226     23.945 -1.047 -1.196 0.000 0.206   NaN
+
+==============================================================================================================
+B. CONNECTED SPEECH: size and speed of each articulator (reading)
+==============================================================================================================
+       section  measure articulator quantity  primary  beta_rate_adjusted  p_rate_adjusted  n_pd  n_hc  median_pd  median_hc      g   beta     p   auc     q
+B IPVS reading UL_range   upper lip    range     True               0.487            0.115    25    20      3.510      3.474 -0.070 -0.176 0.551 0.532 0.612
+B IPVS reading UL_speed   upper lip    speed     True               0.617            0.055    25    20     43.992     42.128 -0.126 -0.174 0.618 0.492 0.662
+B IPVS reading LL_range   lower lip    range     True              -0.285            0.476    25    20      3.241      3.382 -0.354 -0.393 0.247 0.370 0.297
+B IPVS reading LL_speed   lower lip    speed     True              -0.065            0.853    25    20     46.980     49.201 -0.680 -0.795 0.019 0.304 0.057
+B IPVS reading LI_range         jaw    range     True              -0.791            0.017    25    20      3.488      3.806 -0.985 -0.961 0.005 0.246 0.020
+B IPVS reading LI_speed         jaw    speed     True              -0.576            0.083    25    20     41.978     45.867 -1.136 -1.194 0.000 0.222 0.011
+B IPVS reading TT_range  tongue tip    range     True              -0.479            0.145    25    20      3.908      4.140 -0.729 -0.849 0.003 0.278 0.019
+B IPVS reading TT_speed  tongue tip    speed     True               0.027            0.940    25    20     48.328     50.961 -0.592 -0.658 0.046 0.344 0.091
+B IPVS reading TB_range tongue body    range     True              -0.188            0.645    25    20      4.089      4.191 -0.370 -0.341 0.260 0.388 0.300
+B IPVS reading TB_speed tongue body    speed     True               0.122            0.743    25    20     45.323     46.541 -0.518 -0.545 0.101 0.366 0.144
+B IPVS reading TD_range tongue back    range     True              -0.407            0.175    25    20      3.514      3.693 -0.933 -0.938 0.001 0.250 0.011
+B IPVS reading TD_speed tongue back    speed     True               0.124            0.729    25    20     45.529     47.584 -0.527 -0.557 0.098 0.360 0.144
+B IPVS reading LA_range lip opening    range     True               0.338            0.362    25    20      5.495      5.517  0.037 -0.046 0.880 0.498 0.880
+B IPVS reading LA_speed lip opening    speed     True               0.707            0.026    25    20     60.310     59.484  0.080 -0.065 0.850 0.580 0.879
+B IPVS reading TB_space tongue body    space     True               0.065            0.870    25    20      1.146      1.167 -0.380 -0.372 0.226 0.378 0.282
+B MDVR reading UL_range   upper lip    range     True              -0.269            0.435    16    21      3.406      3.494 -0.672 -0.541 0.182 0.348 0.238
+B MDVR reading UL_speed   upper lip    speed     True              -0.503            0.040    16    21     40.763     44.828 -1.186 -0.933 0.010 0.193 0.038
+B MDVR reading LL_range   lower lip    range     True              -0.547            0.038    16    21      3.348      3.500 -0.992 -0.945 0.015 0.289 0.051
+B MDVR reading LL_speed   lower lip    speed     True              -0.356            0.216    16    21     45.407     51.001 -0.933 -0.738 0.067 0.244 0.115
+B MDVR reading LI_range         jaw    range     True              -0.399            0.184    16    21      3.477      3.621 -0.800 -0.718 0.098 0.289 0.144
+B MDVR reading LI_speed         jaw    speed     True              -0.363            0.175    16    21     44.903     47.925 -0.833 -0.696 0.069 0.271 0.115
+B MDVR reading TT_range  tongue tip    range     True              -0.684            0.016    16    21      3.610      3.836 -1.213 -1.039 0.004 0.190 0.019
+B MDVR reading TT_speed  tongue tip    speed     True              -0.453            0.162    16    21     43.836     46.122 -1.054 -0.799 0.023 0.235 0.063
+B MDVR reading TB_range tongue body    range     True              -0.731            0.006    16    21      3.689      3.840 -0.946 -1.021 0.003 0.253 0.019
+B MDVR reading TB_speed tongue body    speed     True              -0.398            0.143    16    21     42.048     44.039 -0.887 -0.790 0.036 0.295 0.082
+B MDVR reading TD_range tongue back    range     True              -0.300            0.397    16    21      3.403      3.558 -0.545 -0.644 0.153 0.396 0.209
+B MDVR reading TD_speed tongue back    speed     True              -0.357            0.221    16    21     44.417     44.690 -0.813 -0.751 0.054 0.327 0.102
+B MDVR reading LA_range lip opening    range     True              -0.471            0.083    16    21      5.327      5.486 -0.917 -0.810 0.027 0.262 0.067
+B MDVR reading LA_speed lip opening    speed     True              -0.310            0.221    16    21     55.562     60.336 -0.914 -0.699 0.038 0.262 0.082
+B MDVR reading TB_space tongue body    space     True              -0.788            0.001    16    21      1.047      1.233 -1.243 -1.268 0.001 0.202 0.011
+
+  pooled English + Italian:
+ measure   beta  ci_lo  ci_hi     p    i2  same_direction     q
+TT_range -0.923 -1.364 -0.483 0.000 0.000            True 0.001
+LI_speed -0.978 -1.472 -0.483 0.000 0.000            True 0.001
+TD_range -0.853 -1.327 -0.380 0.000 0.000            True 0.002
+LI_range -0.869 -1.393 -0.344 0.001 0.000            True 0.004
+TT_speed -0.723 -1.194 -0.253 0.003 0.000            True 0.007
+LL_speed -0.771 -1.280 -0.263 0.003 0.000            True 0.007
+TB_speed -0.652 -1.140 -0.164 0.009 0.000            True 0.019
+TD_speed -0.640 -1.139 -0.141 0.012 0.000            True 0.023
+LL_range -0.636 -1.173 -0.098 0.020 0.123            True 0.034
+TB_range -0.661 -1.326  0.005 0.052 0.541            True 0.077
+TB_space -0.791 -1.667  0.086 0.077 0.700            True 0.105
+UL_speed -0.547 -1.291  0.196 0.149 0.559            True 0.186
+UL_range -0.303 -0.772  0.166 0.205 0.000            True 0.236
+LA_speed -0.386 -1.007  0.235 0.223 0.420            True 0.239
+LA_range -0.401 -1.148  0.346 0.293 0.612            True 0.293
+
+==============================================================================================================
+C. SEVERITY (MDVR patients, Spearman; 'adj' = partial rho controlling for speech rate)
+==============================================================================================================
+ measure  scale  n    rho     p  rho_adj_rate  p_adj_rate     q
+TB_space updrs2 16 -0.870 0.000        -0.671       0.004 0.001
+LL_range     hy 16 -0.813 0.000        -0.329       0.213 0.002
+TB_space updrs3 16 -0.813 0.000        -0.524       0.037 0.002
+LI_range     hy 16 -0.784 0.000        -0.321       0.226 0.003
+TB_space     hy 16 -0.781 0.000        -0.379       0.147 0.003
+TD_speed updrs2 16 -0.751 0.001        -0.356       0.176 0.006
+LL_speed updrs2 16 -0.743 0.001        -0.097       0.721 0.006
+LL_range updrs2 16 -0.724 0.002        -0.241       0.368 0.008
+LI_speed updrs2 16 -0.720 0.002        -0.238       0.374 0.008
+TD_speed updrs3 16 -0.718 0.002        -0.229       0.393 0.008
+LI_range updrs3 16 -0.710 0.002        -0.209       0.438 0.008
+TT_range updrs2 16 -0.707 0.002        -0.409       0.116 0.008
+TB_speed updrs2 16 -0.705 0.002        -0.362       0.169 0.008
+LI_range updrs2 16 -0.704 0.002        -0.303       0.254 0.008
+TT_range updrs3 16 -0.695 0.003        -0.356       0.176 0.008
+TB_speed updrs3 16 -0.693 0.003        -0.259       0.333 0.008
+TD_range updrs2 16 -0.678 0.004        -0.224       0.405 0.010
+LL_range updrs3 16 -0.673 0.004        -0.053       0.846 0.011
+TB_range updrs2 16 -0.661 0.005        -0.441       0.087 0.013
+LI_speed     hy 16 -0.648 0.007         0.121       0.656 0.015
+
+==============================================================================================================
+D. WHERE IS THE TREMOR? mouth (jaw / tongue / lips, 3-7 Hz) vs voice box (loudness / pitch), sustained vowels
+==============================================================================================================
+
+  tremor map FIGSHARE vowels (above the healthy 90th percentile):
+mouth_tremor_high   mouth+        mouth-       
+voice_loudness_high voice+ voice- voice+ voice-
+label                                          
+PD                       0      1     18     21
+healthy                  1      2      2     19
+
+  tremor map IPVS vowels (above the healthy 90th percentile):
+mouth_tremor_high   mouth+        mouth-       
+voice_loudness_high voice+ voice- voice+ voice-
+label                                          
+PD                       1      6      1     17
+healthy                  1      2      2     16
+                  section        measure  primary  n_pd  n_hc  median_pd  median_hc      g   beta     p   auc     q
+D FIGSHARE vowels (clean)       mouth_LI     True    38    23      0.278      0.223  0.096 -0.169 0.700 0.568 0.816
+D FIGSHARE vowels (clean)       mouth_TT     True    38    23      0.341      0.306 -0.223 -0.486 0.207 0.454 0.482
+D FIGSHARE vowels (clean)       mouth_TB     True    38    23      0.346      0.306  0.084  0.071 0.856 0.541 0.922
+D FIGSHARE vowels (clean)       mouth_TD     True    38    23      0.327      0.318  0.136  0.011 0.981 0.563 0.981
+D FIGSHARE vowels (clean)       mouth_LL     True    38    23      0.239      0.184  0.195  0.177 0.532 0.597 0.816
+D FIGSHARE vowels (clean) voice_loudness     True    34    20     -0.137     -0.565  0.862  0.883 0.004 0.741 0.025
+D FIGSHARE vowels (clean)    voice_pitch     True    34    20     -0.209     -0.473  0.216  0.134 0.689 0.588 0.816
+    D IPVS vowels (clean)       mouth_LI     True    25    21      0.333      0.276  0.890  0.954 0.006 0.804 0.026
+    D IPVS vowels (clean)       mouth_TT     True    25    21      0.366      0.326  0.442  0.517 0.148 0.705 0.415
+    D IPVS vowels (clean)       mouth_TB     True    25    21      0.354      0.316  0.635  0.634 0.052 0.722 0.180
+    D IPVS vowels (clean)       mouth_TD     True    25    21      0.393      0.394  0.331  0.290 0.396 0.589 0.693
+    D IPVS vowels (clean)       mouth_LL     True    25    21      0.298      0.273  0.382  0.436 0.241 0.651 0.482
+    D IPVS vowels (clean) voice_loudness     True    25    21     -1.433     -0.600 -1.262 -1.119 0.001 0.173 0.008
+    D IPVS vowels (clean)    voice_pitch     True    25    21     -0.446     -0.373  0.006  0.167 0.626 0.478 0.816
+    D IPVS vowels (phone)       mouth_LI    False    25    21      0.315      0.260  0.909  0.965 0.004 0.829   NaN
+    D IPVS vowels (phone)       mouth_TT    False    25    21      0.355      0.299  0.547  0.603 0.095 0.731   NaN
+    D IPVS vowels (phone)       mouth_TB    False    25    21      0.369      0.309  0.773  0.737 0.028 0.754   NaN
+    D IPVS vowels (phone)       mouth_TD    False    25    21      0.393      0.390  0.335  0.334 0.317 0.577   NaN
+    D IPVS vowels (phone)       mouth_LL    False    25    21      0.288      0.246  0.513  0.563 0.098 0.657   NaN
+    D IPVS vowels (phone) voice_loudness    False    25    21     -0.830     -0.466 -1.020 -0.888 0.005 0.229   NaN
+    D IPVS vowels (phone)    voice_pitch    False    25    21     -0.445     -0.386  0.037  0.189 0.582 0.484   NaN
+
+  does mouth tremor go with voice tremor?
+         cohort  rho_mouth_vs_voice     p
+FIGSHARE vowels              -0.075 0.590
+    IPVS vowels              -0.168 0.265
+
+==============================================================================================================
+RELIABILITY (two takes, ICC 2,1)
+==============================================================================================================
+       section  measure  n   icc
+B IPVS reading UL_range 40 0.821
+B IPVS reading UL_speed 40 0.879
+B IPVS reading LL_range 40 0.855
+B IPVS reading LL_speed 40 0.846
+B IPVS reading LI_range 40 0.901
+B IPVS reading LI_speed 40 0.818
+B IPVS reading TT_range 40 0.898
+B IPVS reading TT_speed 40 0.935
+B IPVS reading TB_range 40 0.889
+B IPVS reading TB_speed 40 0.910
+B IPVS reading TD_range 40 0.803
+B IPVS reading TD_speed 40 0.908
+B IPVS reading LA_range 40 0.847
+B IPVS reading LA_speed 40 0.876
+B IPVS reading TB_space 40 0.943
+
+==============================================================================================================
+SUMMARY: strongest effects (q < 0.10)
+==============================================================================================================
+                  section        measure  n_pd  n_hc      g   beta     p     q   auc
+           B IPVS reading       LI_speed    25    20 -1.136 -1.194 0.000 0.011 0.222
+    D IPVS vowels (clean) voice_loudness    25    21 -1.262 -1.119 0.001 0.008 0.173
+           B MDVR reading       TB_space    16    21 -1.243 -1.268 0.001 0.011 0.202
+           B IPVS reading       TD_range    25    20 -0.933 -0.938 0.001 0.011 0.250
+           B MDVR reading       TB_range    16    21 -0.946 -1.021 0.003 0.019 0.253
+           B IPVS reading       TT_range    25    20 -0.729 -0.849 0.003 0.019 0.278
+D FIGSHARE vowels (clean) voice_loudness    34    20  0.862  0.883 0.004 0.025 0.741
+           B MDVR reading       TT_range    16    21 -1.213 -1.039 0.004 0.019 0.190
+           B IPVS reading       LI_range    25    20 -0.985 -0.961 0.005 0.020 0.246
+    D IPVS vowels (clean)       mouth_LI    25    21  0.890  0.954 0.006 0.026 0.804
+           B MDVR reading       UL_speed    16    21 -1.186 -0.933 0.010 0.038 0.193
+           B MDVR reading       LL_range    16    21 -0.992 -0.945 0.015 0.051 0.289
+           B IPVS reading       LL_speed    25    20 -0.680 -0.795 0.019 0.057 0.304
+           B MDVR reading       TT_speed    16    21 -1.054 -0.799 0.023 0.063 0.235
+           B MDVR reading       LA_range    16    21 -0.917 -0.810 0.027 0.067 0.262
+           B MDVR reading       TB_speed    16    21 -0.887 -0.790 0.036 0.082 0.295
+           B MDVR reading       LA_speed    16    21 -0.914 -0.699 0.038 0.082 0.262
+           B IPVS reading       TT_speed    25    20 -0.592 -0.658 0.046 0.091 0.344
+
+saved: mouth_bradykinesia_effects.csv, mouth_severity.csv, mouth_reliability.csv, ddk_*.csv, reading_*.csv, tremor_*.csv, report_mouth_bradykinesia.md, fig46-50, example clips

@@ -1,0 +1,19 @@
+{
+  "id": "alisaremi/pd-voice-22-head-to-head",
+  "title": "PD Voice 22 Head To Head",
+  "code_file": "head_to_head.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": [],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "alisaremi/pd-voice-02-clean-and-shortcut-tests",
+    "alisaremi/pd-voice-20-mouth-bradykinesia"
+  ],
+  "competition_sources": [],
+  "model_sources": []
+}

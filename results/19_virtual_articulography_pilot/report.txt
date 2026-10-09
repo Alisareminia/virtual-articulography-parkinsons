@@ -1,0 +1,164 @@
+IPVS vowel recordings 495 (46 speakers); DDK 100; Figshare 64
+
+==============================================================================================================
+MODEL 'multi'
+==============================================================================================================
+  SPARC 'multi' loaded
+
+==============================================================================================================
+MODEL 'en'
+==============================================================================================================
+  SPARC 'en' loaded
+
+==============================================================================================================
+VALIDITY CHECKS - model 'multi'
+==============================================================================================================
+  P1 vowel identity (clean): accuracy 0.90 (healthy 0.87, PD 0.93); chance 0.20
+  P1 vowel identity (phone): accuracy 0.89 (healthy 0.83, PD 0.93); chance 0.20
+  confusion (clean, rows = true vowel):
+pred      a     e     i     o     u
+vowel                              
+a      0.85  0.04  0.00  0.11  0.00
+e      0.02  0.96  0.02  0.00  0.00
+i      0.00  0.01  0.96  0.00  0.03
+o      0.07  0.01  0.00  0.86  0.06
+u      0.01  0.01  0.03  0.07  0.88
+  speaker-centred mean posture by vowel:
+       LIY_c  TBY_c  TDY_c  lip_ap_c  TBX_c
+vowel                                      
+a     -0.375 -0.572 -0.478     0.290  0.300
+e     -0.407  0.203  0.086     0.621 -0.149
+i      0.388  0.740  0.586    -0.155 -0.508
+o     -0.068 -0.492 -0.325    -0.176  0.297
+u      0.462  0.122  0.132    -0.580  0.060
+  P2 jaw lower for /a/ than /i/             diff -0.763  p=2.8e-14  OK
+  P2 tongue body higher for /i/ than /a/    diff +1.311  p=2.8e-14  OK
+  P2 tongue back higher for /u/ than /a/    diff +0.610  p=5.7e-14  OK
+  P2 lips more open for /a/ than /u/        diff +0.870  p=2.5e-12  OK
+  P2 lips more open for /a/ than /o/        diff +0.466  p=8.3e-08  OK
+  (front-back: tongue body x for /i/ minus /u/ = -0.568, p=4e-13; sign shows the x-axis direction)
+  P3 lip-vs-tongue dominance, D1 minus D2 (log ratio): +0.227, p=0.0024 -> lips dominate in D1
+     healthy: +0.028, p=0.73, n=21
+     PD: +0.394, p=0.00029, n=25
+  P3b repetition rate from movements vs acoustic syllable rate: rho=0.58 (p=2.6e-10), median 2.34 vs 1.49 Hz
+  P4a phone-band vowel accuracy 0.89 (clean 0.90)
+  P4b Figshare /a/ recognised as /a/: 0.62 (uncentred model: 0.62); chance 0.20
+  P5 test-retest ICC of vowel postures: median 0.80 (range 0.52-0.89)
+
+==============================================================================================================
+PREVIEW (exploratory) - model 'multi'
+==============================================================================================================
+      source           measure      g     p   auc
+      DDK D1         lip_range  0.594 0.047 0.666
+      DDK D2         lip_range -0.470 0.187 0.390
+      DDK D1         lip_speed  0.891 0.006 0.731
+      DDK D2         lip_speed -0.881 0.002 0.240
+      DDK D1     lip_decrement  0.087 0.822 0.519
+      DDK D2     lip_decrement -0.225 0.187 0.390
+      DDK D1          tt_range -1.136 0.001 0.211
+      DDK D2          tt_range -0.477 0.215 0.396
+      DDK D1          tt_speed -1.241 0.000 0.188
+      DDK D2          tt_speed -0.121 0.513 0.445
+      DDK D1      tt_decrement -0.474 0.077 0.352
+      DDK D2      tt_decrement -0.447 0.278 0.409
+      DDK D1         jaw_range -0.010 0.777 0.524
+      DDK D2         jaw_range -0.150 0.689 0.466
+    IPVS /a/ tremor 3-7 Hz LIY  0.430 0.117 0.636
+    IPVS /a/ tremor 3-7 Hz TBY  1.032 0.002 0.770
+    IPVS /a/ tremor 3-7 Hz TDY  0.686 0.017 0.707
+    IPVS /a/ tremor 3-7 Hz LLY  0.203 0.343 0.583
+Figshare /a/ tremor 3-7 Hz LIY  0.096 0.384 0.568
+Figshare /a/ tremor 3-7 Hz TBY  0.084 0.597 0.541
+Figshare /a/ tremor 3-7 Hz TDY  0.136 0.417 0.563
+Figshare /a/ tremor 3-7 Hz LLY  0.195 0.209 0.597
+
+==============================================================================================================
+VALIDITY CHECKS - model 'en'
+==============================================================================================================
+  P1 vowel identity (clean): accuracy 0.90 (healthy 0.87, PD 0.93); chance 0.20
+  P1 vowel identity (phone): accuracy 0.89 (healthy 0.83, PD 0.93); chance 0.20
+  confusion (clean, rows = true vowel):
+pred      a     e     i     o     u
+vowel                              
+a      0.85  0.04  0.00  0.11  0.00
+e      0.02  0.96  0.02  0.00  0.00
+i      0.00  0.01  0.96  0.00  0.03
+o      0.07  0.01  0.00  0.86  0.06
+u      0.01  0.01  0.03  0.07  0.88
+  speaker-centred mean posture by vowel:
+       LIY_c  TBY_c  TDY_c  lip_ap_c  TBX_c
+vowel                                      
+a     -0.375 -0.572 -0.478     0.290  0.300
+e     -0.407  0.203  0.086     0.621 -0.149
+i      0.388  0.740  0.586    -0.155 -0.508
+o     -0.068 -0.492 -0.325    -0.176  0.297
+u      0.462  0.122  0.132    -0.580  0.060
+  P2 jaw lower for /a/ than /i/             diff -0.763  p=2.8e-14  OK
+  P2 tongue body higher for /i/ than /a/    diff +1.311  p=2.8e-14  OK
+  P2 tongue back higher for /u/ than /a/    diff +0.610  p=5.7e-14  OK
+  P2 lips more open for /a/ than /u/        diff +0.870  p=2.5e-12  OK
+  P2 lips more open for /a/ than /o/        diff +0.466  p=8.3e-08  OK
+  (front-back: tongue body x for /i/ minus /u/ = -0.568, p=4e-13; sign shows the x-axis direction)
+  P3 lip-vs-tongue dominance, D1 minus D2 (log ratio): +0.227, p=0.0024 -> lips dominate in D1
+     healthy: +0.028, p=0.73, n=21
+     PD: +0.394, p=0.00029, n=25
+  P3b repetition rate from movements vs acoustic syllable rate: rho=0.58 (p=2.6e-10), median 2.34 vs 1.49 Hz
+  P4a phone-band vowel accuracy 0.89 (clean 0.90)
+  P4b Figshare /a/ recognised as /a/: 0.62 (uncentred model: 0.62); chance 0.20
+  P5 test-retest ICC of vowel postures: median 0.80 (range 0.52-0.89)
+
+==============================================================================================================
+PREVIEW (exploratory) - model 'en'
+==============================================================================================================
+      source           measure      g     p   auc
+      DDK D1         lip_range  0.594 0.047 0.666
+      DDK D2         lip_range -0.470 0.187 0.390
+      DDK D1         lip_speed  0.891 0.006 0.731
+      DDK D2         lip_speed -0.881 0.002 0.240
+      DDK D1     lip_decrement  0.087 0.822 0.519
+      DDK D2     lip_decrement -0.225 0.187 0.390
+      DDK D1          tt_range -1.136 0.001 0.211
+      DDK D2          tt_range -0.477 0.215 0.396
+      DDK D1          tt_speed -1.241 0.000 0.188
+      DDK D2          tt_speed -0.121 0.513 0.445
+      DDK D1      tt_decrement -0.474 0.077 0.352
+      DDK D2      tt_decrement -0.447 0.278 0.409
+      DDK D1         jaw_range -0.010 0.777 0.524
+      DDK D2         jaw_range -0.150 0.689 0.466
+    IPVS /a/ tremor 3-7 Hz LIY  0.430 0.117 0.636
+    IPVS /a/ tremor 3-7 Hz TBY  1.032 0.002 0.770
+    IPVS /a/ tremor 3-7 Hz TDY  0.686 0.017 0.707
+    IPVS /a/ tremor 3-7 Hz LLY  0.203 0.343 0.583
+Figshare /a/ tremor 3-7 Hz LIY  0.096 0.384 0.568
+Figshare /a/ tremor 3-7 Hz TBY  0.084 0.597 0.541
+Figshare /a/ tremor 3-7 Hz TDY  0.136 0.417 0.563
+Figshare /a/ tremor 3-7 Hz LLY  0.195 0.209 0.597
+
+==============================================================================================================
+PILOT VERDICT (GO if P1-P3 pass for at least one model; P4 decides whether Figshare can be used)
+==============================================================================================================
+model                                            check  value  healthy    pd  passed     p                   note
+multi                        P1 vowel identity (clean)  0.901    0.868 0.927    True   NaN                    NaN
+multi                        P1 vowel identity (phone)  0.889    0.832 0.935    True   NaN                    NaN
+multi                    P2 jaw lower for /a/ than /i/ -0.763      NaN   NaN    True 0.000                    NaN
+multi           P2 tongue body higher for /i/ than /a/  1.311      NaN   NaN    True 0.000                    NaN
+multi           P2 tongue back higher for /u/ than /a/  0.610      NaN   NaN    True 0.000                    NaN
+multi               P2 lips more open for /a/ than /u/  0.870      NaN   NaN    True 0.000                    NaN
+multi               P2 lips more open for /a/ than /o/  0.466      NaN   NaN    True 0.000                    NaN
+multi        P3 pa (lips) vs ta (tongue tip) separated  0.227      NaN   NaN    True 0.002 lip-dominant task = D1
+multi       P3b movement rate = acoustic syllable rate  0.580      NaN   NaN    True 0.000                    NaN
+multi P4a IPVS vowels in phone band still recognisable  0.889      NaN   NaN    True   NaN                    NaN
+multi            P4b Figshare phone /a/ looks like /a/  0.625      NaN   NaN    True   NaN                    NaN
+multi          P5 test-retest of postures (median ICC)  0.804      NaN   NaN    True   NaN                    NaN
+   en                        P1 vowel identity (clean)  0.901    0.868 0.927    True   NaN                    NaN
+   en                        P1 vowel identity (phone)  0.889    0.832 0.935    True   NaN                    NaN
+   en                    P2 jaw lower for /a/ than /i/ -0.763      NaN   NaN    True 0.000                    NaN
+   en           P2 tongue body higher for /i/ than /a/  1.311      NaN   NaN    True 0.000                    NaN
+   en           P2 tongue back higher for /u/ than /a/  0.610      NaN   NaN    True 0.000                    NaN
+   en               P2 lips more open for /a/ than /u/  0.870      NaN   NaN    True 0.000                    NaN
+   en               P2 lips more open for /a/ than /o/  0.466      NaN   NaN    True 0.000                    NaN
+   en        P3 pa (lips) vs ta (tongue tip) separated  0.227      NaN   NaN    True 0.002 lip-dominant task = D1
+   en       P3b movement rate = acoustic syllable rate  0.580      NaN   NaN    True 0.000                    NaN
+   en P4a IPVS vowels in phone band still recognisable  0.889      NaN   NaN    True   NaN                    NaN
+   en            P4b Figshare phone /a/ looks like /a/  0.625      NaN   NaN    True   NaN                    NaN
+   en          P5 test-retest of postures (median ICC)  0.804      NaN   NaN    True   NaN                    NaN

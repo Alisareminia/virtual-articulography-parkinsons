@@ -1,0 +1,17 @@
+cohort,feature_set,n_features,auc,auc_lo,auc_hi
+IPVS reading,classic timing/prosody,5,0.86328,0.82625,0.8871
+IPVS reading,classic voice quality,5,0.9846,0.9749,0.99
+IPVS reading,classic articulation (incl. formant movement),8,0.8498,0.81845,0.8791
+IPVS reading,all classic,18,0.9806,0.96735,0.98955
+IPVS reading,deep learning (validated composite),1,0.6759200000000001,0.6067,0.7273
+IPVS reading,deep learning (all 15),15,0.83312,0.75135,0.8855500000000001
+IPVS reading,all classic + DL composite,19,0.9796400000000002,0.9689,0.99
+IPVS reading,all classic + DL all,33,0.96364,0.94645,0.98975
+MDVR reading,classic timing/prosody,5,0.7691666666666667,0.7183035714285714,0.7999255952380953
+MDVR reading,classic voice quality,5,0.8654761904761904,0.8125,0.9130208333333332
+MDVR reading,classic articulation (incl. formant movement),8,0.8282142857142858,0.7595982142857143,0.8779761904761905
+MDVR reading,all classic,18,0.8436904761904761,0.7804315476190476,0.9047619047619048
+MDVR reading,deep learning (validated composite),1,0.825595238095238,0.7857142857142857,0.8564732142857143
+MDVR reading,deep learning (all 15),15,0.7638095238095238,0.7007440476190477,0.8065476190476191
+MDVR reading,all classic + DL composite,19,0.8699404761904761,0.8042410714285714,0.925595238095238
+MDVR reading,all classic + DL all,33,0.8914285714285713,0.8290922619047618,0.9421130952380952

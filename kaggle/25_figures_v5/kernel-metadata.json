@@ -1,0 +1,22 @@
+{
+  "id": "alisaremi/pd-voice-25-figures-v5",
+  "title": "pd-voice-25-figures-v5",
+  "code_file": "figures_v5.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "alisaremi/pd-voice-19-virtual-articulography-pilot",
+    "alisaremi/pd-voice-20-mouth-bradykinesia",
+    "alisaremi/pd-voice-21-sensor-check",
+    "alisaremi/pd-voice-22-head-to-head",
+    "alisaremi/pd-voice-24-figure-assets"
+  ],
+  "competition_sources": [],
+  "model_sources": []
+}

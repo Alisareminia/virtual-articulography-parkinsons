@@ -1,0 +1,16 @@
+# Local environment used to rebuild the figures from the included results (Python 3.9+).
+# The analysis kernels run on Kaggle and install speech-articulatory-coding themselves.
+numpy==2.0.2
+pandas==2.3.3
+scipy==1.13.1
+matplotlib==3.9.4
+statsmodels==0.14.6
+scikit-learn==1.6.1
+praat-parselmouth==0.4.7
+librosa==0.11.0
+soundfile==0.13.1
+pillow==11.3.0
+nbformat==5.10.4
+nbconvert==7.17.1
+jupyter==1.1.1
+kaggle==1.7.4.5

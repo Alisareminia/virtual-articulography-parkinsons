@@ -1,0 +1,24 @@
+  SPARC 'multi' loaded
+
+==============================================================================================================
+1. EXAMPLE READERS (MDVR, typical healthy vs typical Parkinson's, same sex)
+==============================================================================================================
+  healthy: MDVR_HC_139c2848 TB_space 1.233 (group median 1.233)
+  pd: MDVR_PD_1b9c26aa TB_space 1.104 (group median 1.060)
+
+==============================================================================================================
+2. MOCHA-TIMIT EXAMPLE SENTENCE (real sensors vs estimate)
+==============================================================================================================
+  sentence fsew0_054: mean r 0.76 (median of 110 candidates)
+
+==============================================================================================================
+3. MOVEMENT CLOUDS (where each articulator travels during reading)
+==============================================================================================================
+  speakers per cohort/group: {('IPVS', 0): 21, ('IPVS', 1): 28, ('MDVR', 0): 21, ('MDVR', 1): 16}
+
+==============================================================================================================
+4. TREMOR SPECTRA (sustained /a/): jaw / tongue movement and loudness envelope
+==============================================================================================================
+  spectra: {('FIGSHARE', 0): 20, ('FIGSHARE', 1): 36, ('IPVS', 0): 44, ('IPVS', 1): 55}; examples: [('FIGSHARE', 0), ('FIGSHARE', 1), ('IPVS', 0), ('IPVS', 1)]
+
+saved: example_reading.npz, mocha_example.npz, movement_clouds.npz, movement_ellipses.csv, tremor_spectra.npz, tremor_spectra_index.csv

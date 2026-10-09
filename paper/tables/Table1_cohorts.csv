@@ -1,0 +1,9 @@
+cohort,task,group,n,women,age,H&Y,UPDRS III-18,UPDRS II speech
+MDVR (English),reading,Parkinson's,16,6,n/a,2.5 [2-4],1.0 [0-3],1.0 [0-3]
+MDVR (English),reading,healthy,21,17,n/a,,,
+IPVS (Italian),reading,Parkinson's,25,9,66.0 +/- 9.7,,,
+IPVS (Italian),reading,healthy,20,12,66.9 +/- 5.4,,,
+IPVS (Italian),sustained vowels,Parkinson's,25,9,66.0 +/- 9.7,,,
+IPVS (Italian),sustained vowels,healthy,21,12,67.0 +/- 5.3,,,
+Figshare (phone),sustained /a/,Parkinson's,40,19,67.0 +/- 9.0,,,
+Figshare (phone),sustained /a/,healthy,24,12,56.6 +/- 10.8,,,
