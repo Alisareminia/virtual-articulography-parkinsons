@@ -8,7 +8,7 @@ from matplotlib.lines import Line2D
 from scipy.ndimage import gaussian_filter
 from scipy.stats import ttest_ind
 
-DIV = LinearSegmentedColormap.from_list("div", ["#0E1E36", "#1F3A5F", "#8FA9C8", "#F4F4F2", "#CF8F8C", "#B22234", "#6E1020"])
+DIV = LinearSegmentedColormap.from_list("div", ["#0B1730", "#1F3A5F", "#4F72A8", "#E9E9EC", "#C2565C", "#B22234", "#6E1020"])
 
 def speed_line(ax, x, y, cmap="viridis", lw=0.9, alpha=0.9, vmax=None, z=4):
     """Trajectory coloured by instantaneous speed."""
@@ -91,7 +91,7 @@ from scipy.cluster.hierarchy import linkage, dendrogram, leaves_list
 from scipy.spatial.distance import squareform
 
 H_, P_ = STYLE["healthy"], STYLE["pd"]
-DIV = LinearSegmentedColormap.from_list("div", ["#0E1E36", "#1F3A5F", "#8FA9C8", "#F4F4F2", "#CF8F8C", "#B22234", "#6E1020"])
+DIV = LinearSegmentedColormap.from_list("div", ["#0B1730", "#1F3A5F", "#4F72A8", "#E9E9EC", "#C2565C", "#B22234", "#6E1020"])
 DIV_R = DIV.reversed()                      # for z of movement: red = less movement than healthy
 SEQ_G = LinearSegmentedColormap.from_list("seqg", ["#FFFFFF", "#DCE6F2", "#7FA6CF", "#1F3A5F", "#0F1F3D"])
 HEX_G = LinearSegmentedColormap.from_list("hexg", ["#EEF3F9", "#7FA6CF", "#1F3A5F", "#0F1F3D"])
@@ -323,7 +323,7 @@ for a in ANCHOR:
     vmax = max(vmax, np.percentile(np.hypot(*np.diff(xy, axis=0).T), 98))
 for a, (cx, cy) in ANCHOR.items():
     xy = E[:, [CI_[f"{a}X"], CI_[f"{a}Y"]]]; d = (xy - xy.mean(0)) * SCALE
-    lc = speed_line(axe, cx + d[:, 0], cy + d[:, 1], cmap=LinearSegmentedColormap.from_list("spd", ["#0F1F3D", "#2E5A87", "#7FA6CF", "#C77D7F", "#B22234"]), lw=0.55, vmax=vmax)
+    lc = speed_line(axe, cx + d[:, 0], cy + d[:, 1], cmap=LinearSegmentedColormap.from_list("spd", ["#14244F", "#2B4C8C", "#5B54A8", "#8E3B7E", "#B22234"]), lw=0.55, vmax=vmax)
 cax = axe.inset_axes([0.60, 0.07, 0.32, 0.025])
 cb = fig.colorbar(lc, cax=cax, orientation="horizontal"); cb.set_ticks([]); cb.outline.set_linewidth(0.3)
 cax.set_title("movement speed", fontsize=STYLE["small"] - 0.4, pad=1.5)

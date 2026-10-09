@@ -92,10 +92,10 @@ STYLE = dict(
 )
 ART = {"UL": "Upper lip", "LL": "Lower lip", "LI": "Jaw", "TT": "Tongue tip", "TB": "Tongue body",
        "TD": "Tongue back", "LA": "Lip opening"}
-ACOL = {"TT": "#1F6F8B", "TB": "#3A5BA0", "TD": "#2E3F73", "LI": "#6B7280", "LL": "#2A9D8F", "UL": "#8AB6C9",
-        "LA": "#7B6FA6"}
+ACOL = {"TT": "#2563EB", "TB": "#7C3AED", "TD": "#1E3A8A", "LI": "#475569", "LL": "#0D9488", "UL": "#0EA5E9",
+        "LA": "#65A30D"}
 VALIDATED = {"TT_range", "TB_space", "LL_range", "LL_speed", "LA_speed"}          # passed the real-sensor check (step 21)
-SPEC_CMAP = LinearSegmentedColormap.from_list("spec", ["#060B1A", "#0F1F3D", "#1F3A5F", "#3E6A9A", "#7FA6CF", "#C9DAEC", "#FFFFFF"])
+SPEC_CMAP = LinearSegmentedColormap.from_list("spec", ["#05081A", "#14244F", "#2B4C8C", "#5B54A8", "#8E3B7E", "#C0303F", "#F6E7E4"])
 
 def label(m):
     a, q = m.split("_", 1)
