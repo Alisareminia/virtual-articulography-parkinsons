@@ -1066,111 +1066,73 @@ save(fig, "Fig6_why_deep_learning"); plt.show()
 ''')
 
 md("""
-## Figure 7 - The kinematic fingerprint of every speaker
-Each row is one speaker (82 readers, both languages), each column one network movement measure, coloured by z relative
-to healthy speakers of the same dataset and sex (rose = less movement than healthy, slate = more). Rows are grouped by
-language and diagnosis and sorted by the deep-learning composite (right bars; higher = more Parkinson-like). Strips:
-language (green English, cyan Italian), diagnosis, sex (lilac female, slate male), Hoehn & Yahr and UPDRS II speech item (English only; grey = not recorded). Top: pooled group
-difference per measure (diamond, 95% CI as density); bold = sensor-validated.
+## Figure 7 - Individual movement profiles
+**a** every patient's value on each movement measure, as z relative to healthy speakers of the same dataset and sex (dot,
+one patient; grey band, central 80% of healthy speakers; dark tick, patient median; number, share of patients below the
+healthy 10th percentile; bold, sensor-validated); **b** composite of the four validated measures per speaker (higher = smaller
+movements; dashed line, healthy 90th percentile; number, share of patients above it).
 """)
 
 code(r'''
 apply_style()
-S = load("speaker_table_dl_and_classic.csv"); PO = load("reading_pooled_EN_IT.csv").set_index("measure")
+S = load("speaker_table_dl_and_classic.csv")
+INK, INK2 = STYLE["ink"], STYLE["ink2"]
 cols = ["TT_range", "TT_speed", "TB_range", "TB_speed", "TB_space", "TD_range", "TD_speed", "LI_range", "LI_speed",
         "LL_range", "LL_speed", "UL_range", "UL_speed", "LA_range", "LA_speed"]
+arts = [("Tongue tip", 2), ("Tongue body", 3), ("Tongue back", 2), ("Jaw", 2), ("Lower lip", 2), ("Upper lip", 2), ("Lip opening", 2)]
 Z = z_vs_healthy(S, cols)
-groups = [("MDVR reading", 0, "English\nhealthy"), ("MDVR reading", 1, "English\nParkinson's"),
-          ("IPVS reading", 0, "Italian\nhealthy"), ("IPVS reading", 1, "Italian\nParkinson's")]
-blocks, Zs = [], []
-for coh, lb, nm in groups:
-    g = Z[(Z.cohort == coh) & (Z.label == lb)].sort_values("dl_composite")
-    blocks.append((nm, len(g), lb)); Zs.append(g)
-Zall = pd.concat(Zs).reset_index(drop=True); n = len(Zall)
-fig = plt.figure(figsize=(STYLE["w2"], 178 * MM))
-gs = fig.add_gridspec(2, 7, left=0.12, right=0.975, bottom=0.12, top=0.955, width_ratios=[0.028, 0.028, 0.028, 1, 0.028, 0.028, 0.30],
-                      height_ratios=[0.17, 1], wspace=0.06, hspace=0.04)
-axh = fig.add_subplot(gs[1, 3]); axt = fig.add_subplot(gs[0, 3], sharex=axh)
-sl = [fig.add_subplot(gs[1, k], sharey=axh) for k in (0, 1, 2, 4, 5)]; axbar = fig.add_subplot(gs[1, 6], sharey=axh)
-M = Zall[cols].to_numpy()
-ZC = LinearSegmentedColormap.from_list("zc", ["#A3214F", "#E0476F", "#F2B2C3", "#F6F4F8", "#BAC4E2", "#6079C9", "#2E3F78"])
-znorm = Normalize(-2.5, 2.5)
-im = plt.cm.ScalarMappable(znorm, ZC)
-axh.set_xlim(-0.5, len(cols) - 0.5); axh.set_ylim(n - 0.5, -0.5)
-asp_h = tile_aspect(fig, axh, len(cols), n)
-for i_ in range(n):
-    for j_ in range(len(cols)):
-        v_ = M[i_, j_]
-        rtile(axh, j_ - 0.475, i_ - 0.44, 0.95, 0.88, "#ECEBF0" if not np.isfinite(v_) else ZC(znorm(np.clip(v_, -2.5, 2.5))),
-              0.05, asp_h)
-edges = np.cumsum([b[1] for b in blocks])[:-1]
-for e_ in edges:
-    for ax in [axh, axbar] + sl:
-        ax.axhline(e_ - 0.5, color="white", lw=3.0, zorder=5)
-for xb in (6.5, 8.5):
-    axh.axvline(xb, color="white", lw=3.0, zorder=5)
-axh.set_xticks(range(len(cols))); axh.set_xticklabels([short(c) for c in cols], rotation=90)
-for tl, c in zip(axh.get_xticklabels(), cols):
-    tl.set_color(STYLE["ink"] if c in VALIDATED else STYLE["ink2"]); tl.set_fontweight("bold" if c in VALIDATED else "normal")
-axh.set_yticks([]); axh.tick_params(length=0)
-for s_ in axh.spines.values(): s_.set_visible(False)
-codes = [Zall.cohort.eq("IPVS reading").astype(float), Zall.label.astype(float), Zall.male.astype(float),
-         Zall.hy.where(Zall.cohort == "MDVR reading"), Zall.updrs2.where(Zall.cohort == "MDVR reading")]
-cmaps = [ListedColormap(["#9DB4FF", "#C3B1E1"]), ListedColormap([H_, P_]), ListedColormap(["#E9E4F0", "#9AA3B8"]),
-         LinearSegmentedColormap.from_list("hy", ["#FBE3EA", "#E0315F", "#8A1238"]),
-         LinearSegmentedColormap.from_list("u2", ["#FBE3EA", "#E0315F", "#8A1238"])]
-names = ["Language", "Diagnosis", "Sex", "H&Y", "UPDRS II"]
-for ax, cd, cm, nm in zip(sl, codes, cmaps, names):
-    vals = np.asarray(cd, float)
-    lo_, hi_ = np.nanmin(vals), np.nanmax(vals)
-    nrm_ = Normalize(lo_, hi_ if hi_ > lo_ else lo_ + 1)
-    ax.set_xlim(-0.5, 0.5); ax.set_ylim(n - 0.5, -0.5)
-    asp_s = tile_aspect(fig, ax, 1, n)
-    for i_, v_ in enumerate(vals):
-        rtile(ax, -0.42, i_ - 0.44, 0.84, 0.88, "#ECEBF0" if not np.isfinite(v_) else cm(nrm_(v_)), 0.05, asp_s)
-    ax.set_xticks([0]); ax.set_xticklabels([nm], rotation=90); ax.tick_params(length=0, labelleft=False)
-    for s_ in ax.spines.values(): s_.set_visible(False)
-y0 = 0
-for nm, k, lb in blocks:
-    mc_ = Zall.dl_composite.iloc[y0:y0 + k].mean()
-    yc_ = y0 + k / 2 - 0.5
-    sl[0].text(-0.9, yc_ - 1.6, nm.replace("\n", " ").replace(" healthy", "\nhealthy").replace(" Parkinson's", "\nParkinson's"),
-               ha="right", va="center", fontsize=STYLE["small"] - 0.1, color=P_ if lb else H_, fontweight="bold",
-               transform=sl[0].transData, linespacing=1.1)
-    sl[0].text(-0.9, yc_ + 1.7, f"n = {k}\ncomposite {mc_:+.2f}", ha="right", va="center", fontsize=STYLE["small"] - 0.8,
-               color=STYLE["ink2"], transform=sl[0].transData, linespacing=1.15)
-    y0 += k
-cb_ = Zall.dl_composite.to_numpy()
-asp_b = None
-for i_, v_ in enumerate(cb_):
-    axbar.barh(i_, v_, height=0.6, color=P_ if Zall.label.iloc[i_] else H_, alpha=0.8, lw=0)
-y0 = 0
-for nm, k, lb in blocks:
-    med_ = np.median(cb_[y0:y0 + k])
-    axbar.plot([med_, med_], [y0 - 0.5, y0 + k - 0.5], color=STYLE["ink"], lw=0.8, ls=(0, (2, 1.5)), zorder=4)
-    y0 += k
-axbar.axvline(0, color=STYLE["ink2"], lw=0.5); ygrid(axbar, "x")
-axbar.set_xlabel("DL composite\n(higher = more PD-like)"); axbar.tick_params(axis="y", left=False, labelleft=False)
-axbar.spines["left"].set_visible(False); axbar.set_ylim(n - 0.5, -0.5)
-for i, c in enumerate(cols):
-    if c not in PO.index:
-        continue
-    p = PO.loc[c]
-    eye(axt, i, p.beta, p.ci_lo, p.ci_hi, ACOL[c.split("_")[0]], h=0.32, alpha=0.35, vertical=True)
-    axt.scatter(i, p.beta, s=14, marker="D", color=ACOL[c.split("_")[0]], edgecolor="white", lw=0.4, zorder=4)
-axt.axhline(0, color=STYLE["grey"], lw=0.5); axt.set_ylim(-1.8, 0.6); axt.set_yticks([-1.5, -1, -0.5, 0, 0.5])
-axt.set_ylabel("PD - HC\n(SD)", fontsize=STYLE["small"]); axt.tick_params(labelbottom=False, bottom=False); ygrid(axt)
-axt.spines["bottom"].set_visible(False)
-for xx, nm in ((3.0, "Tongue"), (7.5, "Jaw"), (11.5, "Lips")):
-    axt.text(xx, 0.62, nm, ha="center", va="bottom", fontsize=STYLE["small"], fontweight="bold", color=STYLE["ink2"])
-cax = fig.add_subplot(gs[0, 6]); cax.axis("off")
-cin = cax.inset_axes([0.05, 0.35, 0.9, 0.18])
-cbar = fig.colorbar(im, cax=cin, orientation="horizontal"); cbar.outline.set_linewidth(0.3); cbar.set_ticks([-2, 0, 2])
-cbar.solids.set_edgecolor("face")
-cin.tick_params(labelsize=STYLE["small"] - 0.6, length=1.5, pad=1)
-cin.set_title("z vs healthy", fontsize=STYLE["small"] - 0.3, pad=2)
-cin.text(0, -1.9, "less", transform=cin.transAxes, fontsize=STYLE["small"] - 0.7, color=P_, ha="left", va="top")
-cin.text(1, -1.9, "more", transform=cin.transAxes, fontsize=STYLE["small"] - 0.7, color=H_, ha="right", va="top")
+hc, pdz = Z[Z.label == 0], Z[Z.label == 1]
+xpos, x, spans = [], 0.0, []
+for nm, k in arts:
+    spans.append((nm, x, x + k - 1)); xpos += list(x + np.arange(k)); x += k + 0.6
+xpos = np.array(xpos)
+fig = plt.figure(figsize=(STYLE["w2"], 92 * MM))
+gs = fig.add_gridspec(1, 2, left=0.075, right=0.985, bottom=0.2, top=0.86, width_ratios=[3.3, 1], wspace=0.22)
+axa = fig.add_subplot(gs[0]); rng = np.random.default_rng(7)
+for j, c in enumerate(cols):
+    lo, hi = np.nanpercentile(hc[c], [10, 90])
+    axa.add_patch(FancyBboxPatch((xpos[j] - 0.38, lo), 0.76, hi - lo, boxstyle="round,pad=0,rounding_size=0.12",
+                                 mutation_aspect=0.6, fc="#E7E5EE", ec="none", zorder=1))
+    v = pdz[c].dropna().to_numpy(); vc = np.clip(v, -4.2, 3.2)
+    axa.scatter(xpos[j] + rng.uniform(-0.27, 0.27, len(v)), vc, s=5, color=P_, alpha=0.55, lw=0, zorder=3)
+    md_ = np.median(v)
+    axa.plot([xpos[j] - 0.32, xpos[j] + 0.32], [md_, md_], color=INK, lw=1.6, solid_capstyle="round", zorder=4)
+    share = np.mean(v < lo)
+    axa.text(xpos[j], 3.55, f"{share:.0%}", ha="center", va="bottom", fontsize=STYLE["small"] - 0.9,
+             color=INK if c in VALIDATED else INK2, fontweight="bold" if c in VALIDATED else "normal")
+axa.axhline(0, color=STYLE["grey"], lw=0.5, zorder=0)
+axa.set_xlim(-0.6, xpos[-1] + 0.6); axa.set_ylim(-4.4, 4.6); axa.set_yticks([-4, -2, 0, 2])
+axa.set_ylabel("z relative to healthy")
+axa.set_xticks(xpos); axa.set_xticklabels([c.split("_")[1] for c in cols], rotation=90, fontsize=STYLE["small"] - 0.6)
+for tl, c in zip(axa.get_xticklabels(), cols):
+    tl.set_fontweight("bold" if c in VALIDATED else "normal"); tl.set_color(INK if c in VALIDATED else INK2)
+axa.tick_params(axis="x", length=0); axa.spines["bottom"].set_visible(False)
+for nm, x0, x1 in spans:
+    axa.text((x0 + x1) / 2, -5.55, nm, ha="center", va="top", fontsize=STYLE["small"] - 0.5, color=INK,
+             transform=axa.transData, clip_on=False)
+axa.text(-0.45, 4.3, "patients below the healthy range (healthy: 10%)", ha="left", va="bottom", fontsize=STYLE["small"] - 0.9, color=INK2)
+from matplotlib.patches import Patch
+from matplotlib.lines import Line2D as _L2
+axa.legend(handles=[Patch(color="#E7E5EE", label="healthy, central 80%"),
+                    _L2([], [], marker="o", ls="", color=P_, alpha=0.6, ms=3, label="patient"),
+                    _L2([], [], color=INK, lw=1.6, label="patient median")],
+           loc="lower left", bbox_to_anchor=(0.0, 1.05), ncol=3, fontsize=STYLE["small"] - 0.6, handletextpad=0.3)
+axb = fig.add_subplot(gs[1])
+grp = [("MDVR reading", 0, "EN\nhealthy"), ("MDVR reading", 1, "EN\nPD"), ("IPVS reading", 0, "IT\nhealthy"), ("IPVS reading", 1, "IT\nPD")]
+data = [Z[(Z.cohort == c) & (Z.label == l)].dl_composite.dropna() for c, l, _ in grp]
+pos = [0, 1, 2.4, 3.4]
+raincloud(axb, data, pos, [H_, P_, H_, P_], width=0.32, s=4, seed=3)
+for (c, l, _), d, p in zip(grp, data, pos):
+    if l == 1:
+        thr = np.percentile(data[pos.index(p) - 1], 90)
+        axb.plot([p - 1.35, p + 0.45], [thr, thr], color=INK2, lw=0.6, ls=(0, (2, 1.5)), zorder=0)
+        axb.text(p + 0.05, 5.3, f"{np.mean(d > thr):.0%}", ha="center", va="bottom", fontsize=STYLE["small"] - 0.5,
+                 color=P_, fontweight="bold")
+axb.set_xticks(pos); axb.set_xticklabels([g for _, _, g in grp], fontsize=STYLE["small"] - 0.5)
+axb.set_ylim(-3, 6.3); axb.set_ylabel("Composite (higher = smaller movements)"); axb.set_xlim(-0.6, 3.95); ygrid(axb)
+axb.text(1.7, 6.3, "PD above healthy 90th pct.", ha="center", va="top", fontsize=STYLE["small"] - 1.0, color=INK2)
+for ax_, s in ((axa, "a"), (axb, "b")):
+    letter(fig, ax_, s)
 save(fig, "Fig7_kinematic_fingerprint"); plt.show()
 ''')
 
