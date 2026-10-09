@@ -123,6 +123,15 @@ def rho_txt(x, y, lead="rho"):
     pt = "p < 0.001" if p < 0.001 else f"p = {p:.3f}"
     return f"{lead} = {r:.2f}, {pt}, n = {len(d)}"
 
+def tile_aspect(fig, ax, nx, ny):
+    """mutation_aspect that makes FancyBboxPatch corners round when x and y data units differ in size."""
+    pos = ax.get_position()
+    return (pos.width * fig.get_figwidth() / nx) / (pos.height * fig.get_figheight() / ny)
+
+def rtile(ax, x, y, w, h, color, r, aspect, z=2):
+    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle=f"round,pad=0,rounding_size={r}", mutation_aspect=aspect,
+                                fc=color, ec="none", zorder=z))
+
 def ygrid(ax, axis="y"):
     ax.grid(axis=axis, color=STYLE["grid"], lw=0.45, zorder=0); ax.set_axisbelow(True)
 
@@ -896,7 +905,7 @@ A = load("h2h_auc.csv"); F = load("h2h_formant_vs_dl.csv"); UQ = load("h2h_uniqu
 S = load("speaker_table_dl_and_classic.csv")
 fig = plt.figure(figsize=(STYLE["w2"], 215 * MM))
 outer = fig.add_gridspec(2, 1, left=0.16, right=0.985, bottom=0.075, top=0.955, height_ratios=[0.78, 1.35], hspace=0.40)
-r1 = outer[0].subgridspec(1, 3, width_ratios=[1.2, 1.05, 0.62], wspace=0.78)
+r1 = outer[0].subgridspec(1, 3, width_ratios=[1.15, 1.0, 0.78], wspace=0.7)
 NAME = {"classic timing/prosody": "Timing & prosody", "classic voice quality": "Voice quality",
         "classic articulation (incl. formant movement)": "Articulation (formants)", "all classic": "All classic",
         "deep learning (validated composite)": "Deep learning (1 number)", "deep learning (all 15)": "Deep learning (15)",
@@ -906,6 +915,9 @@ order = ["classic timing/prosody", "classic voice quality", "classic articulatio
 order = [o for o in order if o in set(A.feature_set)]
 axa = fig.add_subplot(r1[0]); ygrid(axa, "x")
 y = np.arange(len(order))[::-1]
+for i_, yi_ in enumerate(y):
+    if i_ % 2 == 0:
+        axa.axhspan(yi_ - 0.5, yi_ + 0.5, color="#F4F2F7", lw=0, zorder=0)
 fam = lambda n: P_ if n.startswith("deep") else "#8A1238" if "+" in n else H_
 for yi, n in zip(y, order):
     c = fam(n)
@@ -938,10 +950,10 @@ for coh, nm in (("MDVR reading", "English"), ("IPVS reading", "Italian")):
     for _, r_ in F[F.cohort == coh].iterrows():
         rows.append(r_); ys.append(yc); yc -= 0.78
     yc -= 0.2
-axb.axvspan(-2, 0, color="#ECEEF6", lw=0, zorder=0); axb.axvspan(0, 2, color="#FCEBF0", lw=0, zorder=0)
+axb.axvspan(-2, 0, color="#F4F2F7", lw=0, zorder=0)
 for r_, y0 in zip(rows, ys):
     axb.annotate("", xy=(r_.dl_beta, y0), xytext=(r_.classic_beta, y0),
-                 arrowprops=dict(arrowstyle="-|>", color="#A9A9A9", lw=0.9, mutation_scale=6, shrinkA=3, shrinkB=4))
+                 arrowprops=dict(arrowstyle="-|>", color="#B7B3C2", lw=0.9, mutation_scale=6, shrinkA=3.5, shrinkB=3.5))
     axb.scatter(r_.classic_beta, y0, s=20, color=H_, zorder=3, edgecolor="white", lw=0.4)
     axb.scatter(r_.dl_beta, y0, s=20, color=P_, zorder=3, edgecolor="white", lw=0.4)
 axb.axvline(0, color=STYLE["grey"], lw=0.5)
@@ -954,19 +966,29 @@ axb.text(-0.8, 0.62, "smaller in PD", ha="center", va="bottom", fontsize=STYLE["
 axb.text(0.8, 0.62, "larger in PD", ha="center", va="bottom", fontsize=STYLE["small"] - 0.3, color=P_)
 axb.scatter([], [], s=18, color=H_, label="Classic formants"); axb.scatter([], [], s=18, color=P_, label="Network")
 axb.legend(loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=2)
-axc = fig.add_subplot(r1[2]); axc.set_xlim(-2.0, 2.0); axc.set_ylim(-4.3, 1.9); axc.set_aspect("equal"); axc.axis("off")
+axc = fig.add_subplot(r1[2]); axc.set_xlim(-2.05, 2.05); axc.set_ylim(-5.0, 2.15); axc.set_aspect("equal"); axc.axis("off")
+MIX = "#7A3E73"
 for k, (coh, nm) in enumerate((("MDVR reading", "English"), ("IPVS reading", "Italian"))):
     uu = UQ[UQ.cohort == coh]
     if not len(uu):
         continue
-    u = float(uu.unique_share.iloc[0]); cy = 0.0 - 2.9 * k
-    rC, rD = 0.95, 0.80; dist = rC + rD - 2 * rD * (1 - u)
-    axc.add_patch(plt.Circle((-dist / 2, cy), rC, fc=H_, alpha=0.20, ec=H_, lw=0.8))
-    axc.add_patch(plt.Circle((dist / 2, cy), rD, fc=P_, alpha=0.28, ec=P_, lw=0.8))
-    axc.text(-dist / 2 - 0.35, cy, "classic", ha="center", va="center", fontsize=STYLE["small"] - 0.6, color=H_)
-    axc.text(dist / 2 + 0.36, cy, f"{u:.0%}\nunique", ha="center", va="center", fontsize=STYLE["small"] - 0.3, color=P_, fontweight="bold")
-    axc.text(0, cy - 1.08, nm, ha="center", va="top", fontsize=STYLE["small"])
-axc.text(0, 1.9, "Deep-learning\ncomposite", ha="center", va="top", fontsize=STYLE["small"], color=STYLE["ink2"])
+    u = float(uu.unique_share.iloc[0]); cy = 0.15 - 3.25 * k
+    rC, rD = 1.0, 0.95; dist = rC + rD - 2 * rD * (1 - u)
+    cC, cD = (-dist / 2, cy), (dist / 2, cy)
+    circC = plt.Circle(cC, rC, fc=H_, alpha=0.16, ec="none", zorder=2)
+    circD = plt.Circle(cD, rD, fc=P_, alpha=0.22, ec="none", zorder=2)
+    axc.add_patch(circC); axc.add_patch(circD)
+    ov = plt.Circle(cD, rD, fc=MIX, alpha=0.30, ec="none", zorder=3); axc.add_patch(ov); ov.set_clip_path(circC)
+    axc.add_patch(plt.Circle(cC, rC, fill=False, ec=H_, lw=1.0, zorder=4))
+    axc.add_patch(plt.Circle(cD, rD, fill=False, ec=P_, lw=1.0, zorder=4))
+    xo = (cD[0] - rD + cC[0] + rC) / 2
+    axc.text(cC[0] - 0.42, cy, "classic\nacoustics", ha="center", va="center", fontsize=STYLE["small"] - 1.0, color=H_, zorder=5,
+             linespacing=1.05)
+    axc.text(xo, cy, f"{1 - u:.0%}", ha="center", va="center", fontsize=STYLE["small"] - 0.4, color="white", fontweight="bold", zorder=5)
+    axc.text((cD[0] + rD + cC[0] + rC) / 2 + 0.02, cy, f"{u:.0%}", ha="center", va="center", fontsize=STYLE["small"] + 0.4,
+             color=P_, fontweight="bold", zorder=5)
+    axc.text(0, cy - 1.18, nm, ha="center", va="top", fontsize=STYLE["small"], fontweight="bold", color=STYLE["ink"])
+axc.text(0, 2.12, "Network composite:\nshared vs unique", ha="center", va="top", fontsize=STYLE["small"] - 0.2, color=STYLE["ink2"])
 # d: clustered correlation map (English speakers)
 r2 = outer[1].subgridspec(1, 2, width_ratios=[1.45, 0.78], wspace=0.30)
 en = S[S.cohort == "MDVR reading"].copy()
@@ -979,7 +1001,9 @@ C = en[feats].corr(method="spearman").fillna(0).to_numpy()
 Zl = linkage(squareform(1 - np.abs(C), checks=False), "average"); od = leaves_list(Zl)
 dsub = r2[0].subgridspec(3, 2, width_ratios=[0.03, 1], height_ratios=[0.12, 0.03, 1], wspace=0.012, hspace=0.012)
 axdn = fig.add_subplot(dsub[0, 1]); axts = fig.add_subplot(dsub[1, 1]); axls = fig.add_subplot(dsub[2, 0]); axd = fig.add_subplot(dsub[2, 1])
-dendrogram(Zl, ax=axdn, no_labels=True, link_color_func=lambda k: STYLE["ink2"])
+dendrogram(Zl, ax=axdn, no_labels=True, link_color_func=lambda k: "#8E92A8")
+for ln in axdn.collections:
+    ln.set_linewidth(0.6)
 axdn.set_xlim(0, 10 * len(feats)); axdn.axis("off")
 famlist = list(FAMC); fcm = ListedColormap([FAMC[f] for f in famlist])
 fi = np.array([famlist.index(fams[i]) for i in od])
@@ -989,12 +1013,15 @@ axls.set_xticks([]); axls.set_yticks(range(len(od)))
 labs_ = [short(feats[i]) if fams[i] == "Deep learning" else CL_LAB.get(feats[i], feats[i]) for i in od]
 axls.set_yticklabels(labs_, fontsize=STYLE["small"] - 1.0); axls.tick_params(length=0, pad=1)
 for tl, i in zip(axls.get_yticklabels(), od):
-    tl.set_color(FAMC[fams[i]])
+    tl.set_color(STYLE["ink2"])
 for s_ in axls.spines.values(): s_.set_visible(False)
-im = axd.imshow(C[np.ix_(od, od)], cmap=DIV, vmin=-1, vmax=1, aspect="auto", interpolation="nearest")
+nfe = len(od)
+im = axd.pcolormesh(np.arange(nfe + 1) - 0.5, np.arange(nfe + 1) - 0.5, C[np.ix_(od, od)], cmap=DIV, vmin=-1, vmax=1,
+                    edgecolors="white", linewidth=0.2)
+axd.set_xlim(-0.5, nfe - 0.5); axd.set_ylim(nfe - 0.5, -0.5)
 axd.set_xticks(range(len(od))); axd.set_xticklabels(labs_, rotation=90, fontsize=STYLE["small"] - 1.0); axd.set_yticks([])
 for tl, i in zip(axd.get_xticklabels(), od):
-    tl.set_color(FAMC[fams[i]])
+    tl.set_color(STYLE["ink2"])
 axd.tick_params(length=0, pad=1)
 for s_ in axd.spines.values(): s_.set_visible(False)
 cax = axd.inset_axes([1.015, 0.6, 0.022, 0.38])
@@ -1015,7 +1042,9 @@ def pca_map(ax, cols, title):
     (x0_, y0_), (x1_, y1_) = pcs.min(0), pcs.max(0); px, py = 0.12 * (x1_ - x0_), 0.15 * (y1_ - y0_)
     gx, gy = np.mgrid[x0_ - px:x1_ + px:80j, y0_ - py:y1_ + py:80j]
     for lb, col in ((0, H_), (1, P_)):
-        kd = gaussian_kde(pcs[lab == lb].T)(np.vstack([gx.ravel(), gy.ravel()])).reshape(gx.shape)
+        kd = gaussian_kde(pcs[lab == lb].T, bw_method=0.75)(np.vstack([gx.ravel(), gy.ravel()])).reshape(gx.shape)
+        lv8 = hdr_level(kd, 0.8)
+        ax.contourf(gx, gy, kd, levels=[lv8, kd.max() * 1.01], colors=[col], alpha=0.07)
         lv = hdr_level(kd, 0.5)
         ax.contourf(gx, gy, kd, levels=[lv, kd.max() * 1.01], colors=[col], alpha=0.14)
         ax.contour(gx, gy, kd, levels=[lv], colors=[col], linewidths=0.8)
@@ -1064,38 +1093,62 @@ gs = fig.add_gridspec(2, 7, left=0.12, right=0.975, bottom=0.12, top=0.955, widt
 axh = fig.add_subplot(gs[1, 3]); axt = fig.add_subplot(gs[0, 3], sharex=axh)
 sl = [fig.add_subplot(gs[1, k], sharey=axh) for k in (0, 1, 2, 4, 5)]; axbar = fig.add_subplot(gs[1, 6], sharey=axh)
 M = Zall[cols].to_numpy()
-im = axh.imshow(np.clip(M, -3, 3), cmap=DIV_R, vmin=-2.5, vmax=2.5, aspect="auto", interpolation="nearest")
+ZC = LinearSegmentedColormap.from_list("zc", ["#A3214F", "#E0476F", "#F2B2C3", "#F6F4F8", "#BAC4E2", "#6079C9", "#2E3F78"])
+znorm = Normalize(-2.5, 2.5)
+im = plt.cm.ScalarMappable(znorm, ZC)
+axh.set_xlim(-0.5, len(cols) - 0.5); axh.set_ylim(n - 0.5, -0.5)
+asp_h = tile_aspect(fig, axh, len(cols), n)
+for i_ in range(n):
+    for j_ in range(len(cols)):
+        v_ = M[i_, j_]
+        rtile(axh, j_ - 0.475, i_ - 0.44, 0.95, 0.88, "#ECEBF0" if not np.isfinite(v_) else ZC(znorm(np.clip(v_, -2.5, 2.5))),
+              0.05, asp_h)
 edges = np.cumsum([b[1] for b in blocks])[:-1]
 for e_ in edges:
     for ax in [axh, axbar] + sl:
-        ax.axhline(e_ - 0.5, color="white", lw=1.6)
+        ax.axhline(e_ - 0.5, color="white", lw=3.0, zorder=5)
 for xb in (6.5, 8.5):
-    axh.axvline(xb, color="white", lw=1.2)
+    axh.axvline(xb, color="white", lw=3.0, zorder=5)
 axh.set_xticks(range(len(cols))); axh.set_xticklabels([short(c) for c in cols], rotation=90)
 for tl, c in zip(axh.get_xticklabels(), cols):
-    tl.set_color(ACOL[c.split("_")[0]]); tl.set_fontweight("bold" if c in VALIDATED else "normal")
+    tl.set_color(STYLE["ink"] if c in VALIDATED else STYLE["ink2"]); tl.set_fontweight("bold" if c in VALIDATED else "normal")
 axh.set_yticks([]); axh.tick_params(length=0)
 for s_ in axh.spines.values(): s_.set_visible(False)
 codes = [Zall.cohort.eq("IPVS reading").astype(float), Zall.label.astype(float), Zall.male.astype(float),
          Zall.hy.where(Zall.cohort == "MDVR reading"), Zall.updrs2.where(Zall.cohort == "MDVR reading")]
-cmaps = [ListedColormap([STYLE["english"], STYLE["italian"]]), ListedColormap([H_, P_]), ListedColormap(["#D7C8EC", "#7D8CA3"]),
-         LinearSegmentedColormap.from_list("hy", ["#FDEFF3", "#F08AA4", "#8A1238"]),
-         LinearSegmentedColormap.from_list("u2", ["#FDEFF3", "#F08AA4", "#8A1238"])]
+cmaps = [ListedColormap(["#9DB4FF", "#C3B1E1"]), ListedColormap([H_, P_]), ListedColormap(["#E9E4F0", "#9AA3B8"]),
+         LinearSegmentedColormap.from_list("hy", ["#FBE3EA", "#E0315F", "#8A1238"]),
+         LinearSegmentedColormap.from_list("u2", ["#FBE3EA", "#E0315F", "#8A1238"])]
 names = ["Language", "Diagnosis", "Sex", "H&Y", "UPDRS II"]
 for ax, cd, cm, nm in zip(sl, codes, cmaps, names):
-    cm = cm.copy() if hasattr(cm, "copy") else cm; cm.set_bad("#E4E4E4")
-    a = np.ma.masked_invalid(np.asarray(cd, float)[:, None])
-    ax.imshow(a, cmap=cm, aspect="auto", interpolation="nearest")
+    vals = np.asarray(cd, float)
+    lo_, hi_ = np.nanmin(vals), np.nanmax(vals)
+    nrm_ = Normalize(lo_, hi_ if hi_ > lo_ else lo_ + 1)
+    ax.set_xlim(-0.5, 0.5); ax.set_ylim(n - 0.5, -0.5)
+    asp_s = tile_aspect(fig, ax, 1, n)
+    for i_, v_ in enumerate(vals):
+        rtile(ax, -0.42, i_ - 0.44, 0.84, 0.88, "#ECEBF0" if not np.isfinite(v_) else cm(nrm_(v_)), 0.05, asp_s)
     ax.set_xticks([0]); ax.set_xticklabels([nm], rotation=90); ax.tick_params(length=0, labelleft=False)
     for s_ in ax.spines.values(): s_.set_visible(False)
 y0 = 0
 for nm, k, lb in blocks:
     mc_ = Zall.dl_composite.iloc[y0:y0 + k].mean()
-    sl[0].text(-0.9, y0 + k / 2 - 0.5, f"{nm}\n(n = {k})\ncomposite {mc_:+.2f}", ha="right", va="center", fontsize=STYLE["small"] - 0.2,
-               color=P_ if lb else H_, fontweight="bold", transform=sl[0].transData)
+    yc_ = y0 + k / 2 - 0.5
+    sl[0].text(-0.9, yc_ - 1.6, nm.replace("\n", " ").replace(" healthy", "\nhealthy").replace(" Parkinson's", "\nParkinson's"),
+               ha="right", va="center", fontsize=STYLE["small"] - 0.1, color=P_ if lb else H_, fontweight="bold",
+               transform=sl[0].transData, linespacing=1.1)
+    sl[0].text(-0.9, yc_ + 1.7, f"n = {k}\ncomposite {mc_:+.2f}", ha="right", va="center", fontsize=STYLE["small"] - 0.8,
+               color=STYLE["ink2"], transform=sl[0].transData, linespacing=1.15)
     y0 += k
 cb_ = Zall.dl_composite.to_numpy()
-axbar.barh(np.arange(n), cb_, height=0.82, color=[P_ if l else H_ for l in Zall.label], alpha=0.85, lw=0)
+asp_b = None
+for i_, v_ in enumerate(cb_):
+    axbar.barh(i_, v_, height=0.6, color=P_ if Zall.label.iloc[i_] else H_, alpha=0.8, lw=0)
+y0 = 0
+for nm, k, lb in blocks:
+    med_ = np.median(cb_[y0:y0 + k])
+    axbar.plot([med_, med_], [y0 - 0.5, y0 + k - 0.5], color=STYLE["ink"], lw=0.8, ls=(0, (2, 1.5)), zorder=4)
+    y0 += k
 axbar.axvline(0, color=STYLE["ink2"], lw=0.5); ygrid(axbar, "x")
 axbar.set_xlabel("DL composite\n(higher = more PD-like)"); axbar.tick_params(axis="y", left=False, labelleft=False)
 axbar.spines["left"].set_visible(False); axbar.set_ylim(n - 0.5, -0.5)
@@ -1113,6 +1166,7 @@ for xx, nm in ((3.0, "Tongue"), (7.5, "Jaw"), (11.5, "Lips")):
 cax = fig.add_subplot(gs[0, 6]); cax.axis("off")
 cin = cax.inset_axes([0.05, 0.35, 0.9, 0.18])
 cbar = fig.colorbar(im, cax=cin, orientation="horizontal"); cbar.outline.set_linewidth(0.3); cbar.set_ticks([-2, 0, 2])
+cbar.solids.set_edgecolor("face")
 cin.tick_params(labelsize=STYLE["small"] - 0.6, length=1.5, pad=1)
 cin.set_title("z vs healthy", fontsize=STYLE["small"] - 0.3, pad=2)
 cin.text(0, -1.9, "less", transform=cin.transAxes, fontsize=STYLE["small"] - 0.7, color=P_, ha="left", va="top")
